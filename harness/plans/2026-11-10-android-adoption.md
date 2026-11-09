@@ -149,7 +149,7 @@ verify:
 
 ## 未提交改动
 
-- harness/plans/2026-11-10-android-adoption.md
+- 无未提交改动（计划已提交）。
 
 ## 下一步
 
