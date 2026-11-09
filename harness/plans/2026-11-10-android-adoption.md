@@ -161,8 +161,7 @@ verify:
 
 ## 未提交改动
 
-- harness/plans/2026-11-10-android-adoption.md
-- tools/check_hygiene.py
+- 无未提交改动（P4 收尾；P5 进行中）。
 
 ## 下一步
 
