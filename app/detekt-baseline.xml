@@ -1,0 +1,205 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <CurrentIssues>
+    <ID>ComplexCondition:ConversationViewModel.kt$ConversationViewModel$last != null &amp;&amp; last.speaker == speaker &amp;&amp; !last.isFinal &amp;&amp; SpokenText.isContinuation(line.sourceText, last.sourceText, line.source)</ID>
+    <ID>ComplexCondition:MeetingViewModel.kt$MeetingViewModel$!task.hasActiveTask || _state.value.lengthLimited || _state.value.session == SessionState.Listening || _state.value.session == SessionState.Preparing</ID>
+    <ID>ComplexCondition:SherpaSpeech.kt$SherpaSpeech$bilingual &amp;&amp; SpokenText.scriptIsDecisive(normalized) &amp;&amp; detected != null &amp;&amp; inferred != detected</ID>
+    <ID>ComplexCondition:SpeechRecognizerFactory.kt$SpeechRecognizerFactory$!honorFamily &amp;&amp; SpeechRecognizer.isRecognitionAvailable(context) &amp;&amp; out.none { !it.onDevice &amp;&amp; it.component == null }</ID>
+    <ID>CyclomaticComplexMethod:AndroidSpeechEngine.kt$AndroidSpeechEngine$override suspend fun start( languages: List&lt;AppLanguage&gt;, fallback: AppLanguage, style: SpeechRecognitionStyle, ): Flow&lt;Utterance&gt;</ID>
+    <ID>CyclomaticComplexMethod:ConversationViewModel.kt$ConversationViewModel$private fun accept(utterance: Utterance)</ID>
+    <ID>CyclomaticComplexMethod:RemoteFileDownloader.kt$RemoteFileDownloader$private suspend fun downloadUrl( url: String, dest: File, minBytes: Long, userAgent: String, onBytes: (Long) -&gt; Unit, )</ID>
+    <ID>CyclomaticComplexMethod:SherpaSpeech.kt$SherpaSpeech$fun captions( languages: List&lt;AppLanguage&gt;, fallback: AppLanguage, style: SpeechRecognitionStyle, ): Flow&lt;Utterance&gt;</ID>
+    <ID>CyclomaticComplexMethod:SherpaSpeech.kt$SherpaSpeech$private suspend fun consumeMic( mic: AudioRecord, vad: Vad, finals: Channel&lt;FloatArray&gt;, partials: Channel&lt;FloatArray&gt;, token: Int, )</ID>
+    <ID>FunctionOnlyReturningConstant:SpeechEnginePolicy.kt$SpeechEnginePolicy$fun useGoogleSpeechIntent(honorFamily: Boolean): Boolean</ID>
+    <ID>ImplicitDefaultLocale:LatencyProbe.kt$LatencyTurn$String.format("%.2f", finalRtf)</ID>
+    <ID>InstanceOfCheckForException:GemmaModelStore.kt$GemmaModelStore$error is SpeechEngineException</ID>
+    <ID>LargeClass:ConversationViewModel.kt$ConversationViewModel : ViewModel</ID>
+    <ID>LargeClass:InterpretationViewModel.kt$InterpretationViewModel : ViewModel</ID>
+    <ID>LongParameterList:Components.kt$( language: AppLanguage, pane: PaneState, fontSize: CaptionFontSize, inverted: Boolean, idle: String, error: String?, accessibilityLabel: String, modifier: Modifier = Modifier, showSource: Boolean = false, onErrorClick: (() -&gt; Unit)? = null, )</ID>
+    <ID>LongParameterList:InterpretationViewModel.kt$InterpretationViewModel$( private val speech: SpeechRecognizing, private val permissions: PermissionGranting, private val preferences: PreferencesStore, private val summarizer: ConversationSummarizing, private val audioSession: AudioSessionConfiguring, private val synthesizer: SpeechSynthesizing, private val translator: Translating, private val speechIntent: SpeechIntentBridge, private val probe: LatencyProbe, private val computeGate: ComputeGate, val catalog: LanguageCataloging, taskStore: TaskStore, )</ID>
+    <ID>LoopWithTooManyJumpStatements:SherpaSpeech.kt$SherpaSpeech$while</ID>
+    <ID>LoopWithTooManyJumpStatements:TranslationPump.kt$TranslationPump$while</ID>
+    <ID>MagicNumber:AndroidSpeechEngine.kt$AndroidSpeechEngine$1100</ID>
+    <ID>MagicNumber:AndroidSpeechEngine.kt$AndroidSpeechEngine$1400</ID>
+    <ID>MagicNumber:AndroidSpeechEngine.kt$AndroidSpeechEngine$2_500</ID>
+    <ID>MagicNumber:AndroidSpeechEngine.kt$AndroidSpeechEngine$3</ID>
+    <ID>MagicNumber:AndroidSpeechEngine.kt$AndroidSpeechEngine$5</ID>
+    <ID>MagicNumber:AndroidSpeechEngine.kt$AndroidSpeechEngine$500</ID>
+    <ID>MagicNumber:AndroidSpeechEngine.kt$AndroidSpeechEngine$8_000</ID>
+    <ID>MagicNumber:AndroidSpeechEngine.kt$AndroidSpeechEngine.&lt;no name provided&gt;$280</ID>
+    <ID>MagicNumber:AndroidSpeechEngine.kt$AndroidSpeechEngine.&lt;no name provided&gt;$450</ID>
+    <ID>MagicNumber:CaptionModels.kt$SpokenText$0.5</ID>
+    <ID>MagicNumber:CaptionModels.kt$SpokenText$0.55</ID>
+    <ID>MagicNumber:CaptionModels.kt$SpokenText$0x80</ID>
+    <ID>MagicNumber:CaptionModels.kt$SpokenText$3</ID>
+    <ID>MagicNumber:CaptionModels.kt$SpokenText$4</ID>
+    <ID>MagicNumber:CaptionModels.kt$SpokenText$5</ID>
+    <ID>MagicNumber:CaptionModels.kt$SpokenText$8</ID>
+    <ID>MagicNumber:Components.kt$0xFF1C1915</ID>
+    <ID>MagicNumber:Components.kt$180f</ID>
+    <ID>MagicNumber:Components.kt$3</ID>
+    <ID>MagicNumber:Components.kt$90</ID>
+    <ID>MagicNumber:Copy.kt$Copy$1024.0</ID>
+    <ID>MagicNumber:Copy.kt$TaskFormatting$60</ID>
+    <ID>MagicNumber:DeviceAssetCatalog.kt$DeviceAssetCatalog$0.99f</ID>
+    <ID>MagicNumber:DeviceCapabilityProbe.kt$DeviceCapabilityProbe$60_000</ID>
+    <ID>MagicNumber:DuiyiTheme.kt$0xFF1C1915</ID>
+    <ID>MagicNumber:GemmaModelStore.kt$GemmaModelStore$0.99f</ID>
+    <ID>MagicNumber:GemmaTranslator.kt$GemmaTranslator$0.97f</ID>
+    <ID>MagicNumber:GemmaTranslator.kt$GemmaTranslator$180_000L</ID>
+    <ID>MagicNumber:GemmaTranslator.kt$GemmaTranslator$4</ID>
+    <ID>MagicNumber:GemmaTranslator.kt$GemmaTranslator$40</ID>
+    <ID>MagicNumber:HonorGoogleSpeech.kt$HonorGoogleSpeech$17</ID>
+    <ID>MagicNumber:HonorGoogleSpeech.kt$HonorGoogleSpeech$18</ID>
+    <ID>MagicNumber:InterpretationViewModel.kt$InterpretationViewModel$200</ID>
+    <ID>MagicNumber:LatencyProbe.kt$LatencyProbe$1_000_000L</ID>
+    <ID>MagicNumber:OnboardingScreen.kt$0xFF1C1915</ID>
+    <ID>MagicNumber:OnboardingViewModel.kt$OnboardingViewModel$0.12f</ID>
+    <ID>MagicNumber:RemoteFileDownloader.kt$RemoteFileDownloader$1024</ID>
+    <ID>MagicNumber:RemoteFileDownloader.kt$RemoteFileDownloader$120_000</ID>
+    <ID>MagicNumber:RemoteFileDownloader.kt$RemoteFileDownloader$200</ID>
+    <ID>MagicNumber:RemoteFileDownloader.kt$RemoteFileDownloader$206</ID>
+    <ID>MagicNumber:RemoteFileDownloader.kt$RemoteFileDownloader$20_000</ID>
+    <ID>MagicNumber:RemoteFileDownloader.kt$RemoteFileDownloader$299</ID>
+    <ID>MagicNumber:RemoteFileDownloader.kt$RemoteFileDownloader$64</ID>
+    <ID>MagicNumber:ServiceProtocols.kt$TaskTitle$16</ID>
+    <ID>MagicNumber:SherpaModelStore.kt$SherpaModelStore$0.99f</ID>
+    <ID>MagicNumber:SherpaSpeech.kt$SherpaSpeech$32768.0f</ID>
+    <ID>MagicNumber:SherpaSpeech.kt$SherpaSpeech$4</ID>
+    <ID>MagicNumber:SpeechIntentBridge.kt$SpeechIntentBridge$500</ID>
+    <ID>MagicNumber:SpeechIntentBridge.kt$SpeechIntentBridge$900</ID>
+    <ID>MagicNumber:SystemSpeechSynthesizer.kt$SystemSpeechSynthesizer$1.08f</ID>
+    <ID>MagicNumber:SystemSpeechSynthesizer.kt$SystemSpeechSynthesizer$12_000L</ID>
+    <ID>MagicNumber:Tokens.kt$Tokens$0xFF7EA0E8</ID>
+    <ID>MagicNumber:Tokens.kt$Tokens$0xFF7ECF9A</ID>
+    <ID>MagicNumber:Tokens.kt$Tokens$0xFFC49BE8</ID>
+    <ID>MagicNumber:Tokens.kt$Tokens$0xFFE07A7A</ID>
+    <ID>MagicNumber:TranslateGemmaPrompt.kt$TranslateGemmaPrompt$16</ID>
+    <ID>MagicNumber:TranslationPolicy.kt$TranslationPolicy$0x80</ID>
+    <ID>MagicNumber:TranslationPolicy.kt$TranslationPolicy$12</ID>
+    <ID>MagicNumber:TranslationPolicy.kt$TranslationPolicy$20</ID>
+    <ID>MagicNumber:TranslationPolicy.kt$TranslationPolicy$28</ID>
+    <ID>MagicNumber:TranslationPolicy.kt$TranslationPolicy$3</ID>
+    <ID>MagicNumber:TranslationPolicy.kt$TranslationPolicy$4</ID>
+    <ID>MagicNumber:TranslationPolicy.kt$TranslationPolicy$6</ID>
+    <ID>MagicNumber:TranslationPolicy.kt$TranslationPolicy$8</ID>
+    <ID>MagicNumber:TranslationPolicy.kt$TranslationPolicy$80</ID>
+    <ID>MagicNumber:TranslationPump.kt$TranslationPump$1_000_000L</ID>
+    <ID>MagicNumber:TranslationPump.kt$TranslationPump$24</ID>
+    <ID>MagicNumber:TranslationPump.kt$TranslationPump$40</ID>
+    <ID>MagicNumber:UtteranceAssembler.kt$UtteranceAssembler.Companion$0x80</ID>
+    <ID>MaxLineLength:Components.kt$"${Copy.taskRunning(language)} · ${if (seconds &lt; 90) Copy.justNow(language) else TaskFormatting.durationText(seconds, language)}"</ID>
+    <ID>MaxLineLength:Components.kt$fontWeight = if (live.phase == com.duiyi.android.domain.CaptionLine.Phase.Settled) FontWeight.SemiBold else FontWeight.Normal</ID>
+    <ID>MaxLineLength:ConversationScreen.kt$ConfirmDialog(state.confirmEnd, Copy.endTaskConfirm(language), Copy.endTask(language), Copy.cancel(language), true, { viewModel.confirmEnd(true) }, { viewModel.confirmEnd(false) })</ID>
+    <ID>MaxLineLength:ConversationScreen.kt$ConfirmDialog(state.confirmLeave, Copy.endTaskConfirm(language), Copy.endTask(language), Copy.cancel(language), true, { viewModel.confirmLeave(true, onHome) }, { viewModel.confirmLeave(false) {} })</ID>
+    <ID>MaxLineLength:ConversationScreen.kt$ConfirmDialog(state.confirmReplace, Copy.replaceTaskConfirm(language), Copy.newTask(language), Copy.cancel(language), true, { viewModel.confirmReplace(true) }, { viewModel.confirmReplace(false) })</ID>
+    <ID>MaxLineLength:ConversationViewModel.kt$ConversationViewModel$val hintedPeer = if (speaker == SpeakerSide.Peer &amp;&amp; !utterance.isFinal) peer.withHint(speaking) else peer.withHint(if (utterance.isFinal) null else peer.speakingHint)</ID>
+    <ID>MaxLineLength:ConversationViewModel.kt$ConversationViewModel$val hintedUser = if (speaker == SpeakerSide.User &amp;&amp; !utterance.isFinal) user.withHint(speaking) else user.withHint(if (utterance.isFinal) null else user.speakingHint)</ID>
+    <ID>MaxLineLength:ConversationViewModel.kt$ConversationViewModel$val peer = if (listener == SpeakerSide.Peer) applied else it.peerPane.withHint(if (utterance.isFinal) null else it.peerPane.speakingHint)</ID>
+    <ID>MaxLineLength:ConversationViewModel.kt$ConversationViewModel$val user = if (listener == SpeakerSide.User) applied else it.userPane.withHint(if (utterance.isFinal) null else it.userPane.speakingHint)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun assetDownloading(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun assetFailed(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun assetsBody(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun assetsBodyHonor(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun assetsTitle(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun capabilitySpeechNone(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun capabilitySpeechOnDevice(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun capabilityTranslationMissing(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun capabilityTranslationOnDevice(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun confirmDeleteAsset(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun deleteTaskConfirm(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun downloadMissing(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun downloadModels(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun endTaskConfirm(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun exportShare(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun googleDictationHint(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun historyEmpty(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun historySubtitle(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun homeFaceToFaceSubtitle(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun homeMeetingSubtitle(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun homeSimultaneousSubtitle(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun idlePrompt(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun interpretationIdle(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun languageBody(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun languageQuestion(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun languageUnavailable(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun listeningHint(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun meetingTooLong(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun minutesCount(minutes: Int, language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun modeSimultaneous(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun modelsSubtitle(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun nanoGenerated(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun needNewTask(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun noGmsHint(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun peerCaptionsA11y(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun peerIdlePrompt(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun permissionBody(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun permissionTitle(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun replaceTaskConfirm(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun settingsHint(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun speechEngineSettings(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun speechModelBody(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun speechModelTitle(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun summarize(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun summaryDeviceNotEligible(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun summaryLoading(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun summaryModelNotReady(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun summaryTitle(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun summaryUnavailable(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun swapLanguages(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun tableHint(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun takeTurns(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun taskIdle(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun theyReadSection(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun translationModelBody(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun translationModelTitle(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun unfinishedTasks(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun userCaptionsA11y(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun voiceOutMicHint(language: AppLanguage)</ID>
+    <ID>MaxLineLength:Copy.kt$Copy$fun welcomeBody(language: AppLanguage)</ID>
+    <ID>MaxLineLength:DuiyiError.kt$DuiyiError$en = "Captions run inside the Google app. Duiyi’s microphone permission is not enough. Allow Microphone for Google, then try again. Tap this line to open Google’s app info."</ID>
+    <ID>MaxLineLength:DuiyiError.kt$DuiyiError$en = "Google Play services are missing. Non-Honor dictation may need the Google app. Translation now uses on-device TranslateGemma and does not need GMS."</ID>
+    <ID>MaxLineLength:DuiyiError.kt$DuiyiError$en = "Honor’s default recognizer is Magic Voice, which does not caption third-party apps. Set the default voice input to Google, then tap Start again. Tap this line to open Voice input settings."</ID>
+    <ID>MaxLineLength:GemmaTranslator.kt$GemmaTranslator$DuiyiLog.i("gemma generate ${from.translateTag}-&gt;${to.translateTag} prefix=${split.prefix.length} suffix=${split.suffix.length} src=${text.take(40)}")</ID>
+    <ID>MaxLineLength:HistoryScreen.kt$FilterChip(Copy.modeSimultaneous(language), state.filter == FeatureID.Simultaneous) { viewModel.setFilter(FeatureID.Simultaneous) }</ID>
+    <ID>MaxLineLength:HistoryScreen.kt$Text(task?.title ?: Copy.recordTitle(language), color = Tokens.textPrimary, fontSize = 16.sp, modifier = Modifier.weight(1f).padding(horizontal = 8.dp))</ID>
+    <ID>MaxLineLength:InterpretationScreen.kt$ConfirmDialog(state.confirmEnd, Copy.endTaskConfirm(language), Copy.endTask(language), Copy.cancel(language), true, { viewModel.confirmEnd(true) }, { viewModel.confirmEnd(false) })</ID>
+    <ID>MaxLineLength:InterpretationScreen.kt$ConfirmDialog(state.confirmLeave, Copy.endTaskConfirm(language), Copy.endTask(language), Copy.cancel(language), true, { viewModel.confirmLeave(true, onHome) }, { viewModel.confirmLeave(false) {} })</ID>
+    <ID>MaxLineLength:InterpretationScreen.kt$ConfirmDialog(state.confirmReplace, Copy.replaceTaskConfirm(language), Copy.newTask(language), Copy.cancel(language), true, { viewModel.confirmReplace(true) }, { viewModel.confirmReplace(false) })</ID>
+    <ID>MaxLineLength:InterpretationViewModel.kt$InterpretationViewModel$it.copy(pane = pane.copy(history = pane.history.takeLast(PaneState.HISTORY_LIMIT)), summary = session.summary, hasActiveTask = true, taskStartedAt = session.startedAt)</ID>
+    <ID>MaxLineLength:MeetingScreen.kt$ConfirmDialog(state.confirmEnd, Copy.endTaskConfirm(language), Copy.endTask(language), Copy.cancel(language), true, { viewModel.confirmEnd(true) }, { viewModel.confirmEnd(false) })</ID>
+    <ID>MaxLineLength:MeetingScreen.kt$ConfirmDialog(state.confirmLeave, Copy.endTaskConfirm(language), Copy.endTask(language), Copy.cancel(language), true, { viewModel.confirmLeave(true, onHome) }, { viewModel.confirmLeave(false) {} })</ID>
+    <ID>MaxLineLength:MeetingScreen.kt$ConfirmDialog(state.confirmReplace, Copy.replaceTaskConfirm(language), Copy.newTask(language), Copy.cancel(language), true, { viewModel.confirmReplace(true) }, { viewModel.confirmReplace(false) })</ID>
+    <ID>MaxLineLength:MeetingScreen.kt$Text(entry.sourceText, color = Tokens.textPrimary, fontSize = state.fontSize.liveSp.sp, modifier = Modifier.padding(bottom = 12.dp))</ID>
+    <ID>MaxLineLength:MeetingViewModel.kt$MeetingViewModel$_state.update { it.copy(pane = PaneState.Empty, entries = emptyList(), summary = null, summaryMessage = null, lengthLimited = false) }</ID>
+    <ID>MaxLineLength:MeetingViewModel.kt$MeetingViewModel$it.copy(hasActiveTask = false, taskStartedAt = null, session = SessionState.Ready, pane = PaneState.Empty, entries = emptyList(), lengthLimited = false)</ID>
+    <ID>MaxLineLength:TranslationPump.kt$TranslationPump$"translate ok ${job.from.translateTag}-&gt;${job.to.translateTag} in=${job.text.length} out=${text.length} preview=${text.take(24)}"</ID>
+    <ID>MaxLineLength:TranslationPump.kt$TranslationPump$"translate submit ${job.from.translateTag}-&gt;${job.to.translateTag} queued=${pendingSize()} sent=${sent.isSuccess} final=${job.isFinal}"</ID>
+    <ID>NestedBlockDepth:RemoteFileDownloader.kt$RemoteFileDownloader$private suspend fun downloadUrl( url: String, dest: File, minBytes: Long, userAgent: String, onBytes: (Long) -&gt; Unit, )</ID>
+    <ID>NestedBlockDepth:RemoteFileDownloader.kt$RemoteFileDownloader$suspend fun download( urls: List&lt;String&gt;, dest: File, minBytes: Long, userAgent: String, onBytes: (Long) -&gt; Unit, )</ID>
+    <ID>NestedBlockDepth:SherpaSpeech.kt$SherpaSpeech$private suspend fun consumeMic( mic: AudioRecord, vad: Vad, finals: Channel&lt;FloatArray&gt;, partials: Channel&lt;FloatArray&gt;, token: Int, )</ID>
+    <ID>TooGenericExceptionCaught:AndroidSpeechEngine.kt$AndroidSpeechEngine$error: Exception</ID>
+    <ID>TooGenericExceptionCaught:ConversationViewModel.kt$ConversationViewModel$error: Exception</ID>
+    <ID>TooGenericExceptionCaught:GemmaModelStore.kt$GemmaModelStore$error: Exception</ID>
+    <ID>TooGenericExceptionCaught:GemmaTranslator.kt$GemmaTranslator$error: Throwable</ID>
+    <ID>TooGenericExceptionCaught:InterpretationViewModel.kt$InterpretationViewModel$error: Exception</ID>
+    <ID>TooGenericExceptionCaught:MeetingViewModel.kt$MeetingViewModel$error: Exception</ID>
+    <ID>TooGenericExceptionCaught:RemoteFileDownloader.kt$RemoteFileDownloader$error: Exception</ID>
+    <ID>TooGenericExceptionCaught:SherpaModelStore.kt$SherpaModelStore$error: Exception</ID>
+    <ID>TooGenericExceptionCaught:SherpaSpeech.kt$SherpaSpeech$error: Exception</ID>
+    <ID>TooGenericExceptionCaught:TranslationPump.kt$TranslationPump$error: Exception</ID>
+    <ID>TooManyFunctions:ConversationViewModel.kt$ConversationViewModel : ViewModel</ID>
+    <ID>TooManyFunctions:Copy.kt$Copy</ID>
+    <ID>TooManyFunctions:InterpretationViewModel.kt$InterpretationViewModel : ViewModel</ID>
+    <ID>TooManyFunctions:MeetingViewModel.kt$MeetingViewModel : ViewModel</ID>
+    <ID>TooManyFunctions:SpeechEnginePolicy.kt$SpeechEnginePolicy</ID>
+    <ID>TooManyFunctions:SpeechRecognizerFactory.kt$SpeechRecognizerFactory</ID>
+    <ID>UnusedParameter:ConversationViewModel.kt$ConversationViewModel$from: AppLanguage</ID>
+    <ID>UnusedParameter:Copy.kt$Copy$language: AppLanguage</ID>
+    <ID>UnusedParameter:SpeechEnginePolicy.kt$SpeechEnginePolicy$brand: String</ID>
+    <ID>UnusedParameter:SpeechEnginePolicy.kt$SpeechEnginePolicy$honorFamily: Boolean</ID>
+    <ID>UseCheckOrError:RemoteFileDownloader.kt$RemoteFileDownloader$throw IllegalStateException("http $code")</ID>
+    <ID>UseCheckOrError:RemoteFileDownloader.kt$RemoteFileDownloader$throw IllegalStateException("short ${dest.length()}")</ID>
+  </CurrentIssues>
+</SmellBaseline>

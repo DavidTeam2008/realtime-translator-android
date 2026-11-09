@@ -26,7 +26,7 @@
     "budgets": {
       "AGENTS.md": 1200,
       "references/contracts.md": 700,
-      "references/verification.md": 700,
+      "references/verification.md": 900,
       "references/workflow.md": 700
     },
     "sensitivePatterns": [

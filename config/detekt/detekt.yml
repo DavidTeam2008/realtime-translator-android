@@ -1,0 +1,32 @@
+# detekt: complexity/dead-code/duplication guard for the Android app.
+# Baseline keeps today's debt visible without blocking the retrofit; new findings fail.
+build:
+  maxIssues: 0
+
+complexity:
+  LongMethod:
+    threshold: 120
+  LongParameterList:
+    functionThreshold: 10
+    constructorThreshold: 12
+  TooManyFunctions:
+    thresholdInClasses: 25
+  CyclomaticComplexMethod:
+    threshold: 20
+
+style:
+  MagicNumber:
+    ignoreNumbers: ['-1', '0', '1', '2', '10', '100', '1000']
+    ignorePropertyDeclaration: true
+    ignoreCompanionObjectPropertyDeclaration: true
+  MaxLineLength:
+    maxLineLength: 140
+  ReturnCount:
+    max: 6
+  UnusedPrivateMember:
+    allowedNames: '_'
+
+naming:
+  FunctionNaming:
+    ignoreAnnotated: ['Composable']
+

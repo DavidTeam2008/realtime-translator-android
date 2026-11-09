@@ -26,13 +26,13 @@
 4. 每步把「命令 | 结果 | 环境 | 证据ID」写进「验证证据」表；未跑/未验证单列。
 5. 收尾：`make check` → `make verify-static`；完成改 `status: done` 并归档，交接写“下一步 1 条”。
 
-## 4. 证据工作流（P4 后启用）
+## 4. 证据工作流（已启用，P4）
 
-- 来源：`./scripts/verify-unit.sh` 产出的 JUnit XML。
+- 来源：`./scripts/verify-unit.sh` 产出的 JUnit XML；`make evidence-test` 一键跑测并取证。
 - 转换：`tools/evidence_from_junit.py` → `tools/evidence.py write`（自动填 UTC id / git commit / dirty；要求 clean tree）。
 - 判定：`make verify-claim` 固定输出 `CLAIM <id>: PASS|FAIL|UNVERIFIED`，聚合退出码 FAIL→1 / UNVERIFIED→2 / 全 PASS→0。
 - 规则：无证据 = 未验证；环境不可复核 = UNVERIFIED；原始产物（日志/构建目录）不入库，只存 1–3 KB 摘要。
-- 当前状态：证据链尚未生成首条 `tests-pass` 证据（P4 待做），因此测试类完成声明暂为 **UNVERIFIED**。
+- 当前状态：P4 已启用并生成首条 `tests-pass` 证据（见 `harness/evidence/`）；测试类完成声明必须引用证据 ID。
 
 ## 5. kit 版本与升级
 
@@ -47,7 +47,8 @@
 | 静态（CI + 本地） | 文档链接/索引/围栏/预算、指令预算与敏感串、计划状态与证据 schema | 只证明结构，不证明行为正确 |
 | 单测（本地） | JVM 单测 65，floor 门禁 | 需要 JDK 17–21；不覆盖真机/引擎 |
 | 真机（手工） | 听写/翻译/延迟/权限 | 无自动化，环境不可用即“未验证” |
-| 宿主质量（P4） | `check-host`：detekt/ktlint/Lint/分层/卫生 | 尚未接入；当前 Makefile 无该目标 |
+| 宿主静态（CI + 本地） | `make check-host`：`check_layers`（分层）+ `check_hygiene`（卫生），已并入 `verify-static` | 只做静态规则，不证明行为正确 |
+| 宿主质量（本地） | `make check-quality`：detekt + ktlint + Android Lint（baseline 起步） | 需要 JDK 17–21/SDK；不跑 CI；存量债在 baseline |
 
 - CI（`.github/workflows/verify.yml`）只跑 `make verify-static`，不跑单测/真机。
 - 证据可伪造；三值判定提高说谎成本，不提供密码学保证。

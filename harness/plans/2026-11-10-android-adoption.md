@@ -13,6 +13,7 @@ scope:
     - docs/
     - references/
     - harness/
+    - config/
     - tools/
     - scripts/
     - Makefile
@@ -73,7 +74,7 @@ verify:
 - [x] P1 接入 scaffold（2026-11-10）：kit 0.2.2 init standard `--language android`；修复 10 篇文档索引、跨仓断链、评估稿归档、config/baseline（unit floor=65）；`make check` / `make verify-static` PASS；scaffold 提交 `5179fdd`
 - [x] P2 文档蒸馏（2026-11-10）：当前 docs 重写（01/02/04/09 + README/AGENTS）；01–08/09/10 原文归档 `docs/_archive/`；新增 `docs/03-decisions.md`（D1–D15 唯一决策表）、`docs/05-known-issues.md`、`docs/06-roadmap.md`、`docs/07-on-device-llm.md`、`docs/08-latency.md`；根 `AGENTS.md`/`CONTRIBUTING.md`/`HARNESS.md`/`README.md` 与 `references/` 三篇重写；`make check` PASS（164 条链接/11 篇公开文档/预算内）
 - [x] P3 清洁批次（2026-11-10）：死代码/调试入口/llama.cpp 链接/本机脚本/`.gitignore` 全部处理；`check_layers` + `check_hygiene` PASS；65 单测复跑 PASS；debug/release manifest 合并已核
-- [ ] P4 传感器与证据链
+- [x] P4 传感器与证据链（2026-11-10）：`check-host`（`check_layers` + `check_hygiene`）并入 `verify-static`；detekt + ktlint + Android Lint 接入 `check-quality`（三份 baseline 起步，0 失败）；`make test` / `make evidence-test` 证据链就绪；`references/verification.md` 等文档同步
 - [ ] P5 验收（负向注入 + 冷启动首访 + 归档演练）
 
 ## 盘点结论
@@ -113,14 +114,14 @@ verify:
 
 | 传感器 | 命令 | 现状 | 目标 |
 | --- | --- | --- | --- |
-| 文档 / 指令门禁 | `python3 tools/check_docs.py`、`python3 tools/check_agents.py` | P1 已 PASS | 保持 0 |
-| 计划状态 | `python3 tools/check_plan.py check` | P1 已 PASS | 保持 0 |
-| 静态门禁总入口 | `make verify-static` | P1 已 PASS | 保持 0 |
-| 宿主卫生检查 | `python3 tools/check_hygiene.py`（P4） | 未接入 | 0（符号链接/本机路径/根白名单/大文件） |
-| 分层守卫 | `python3 tools/check_layers.py`（P4） | 未接入 | 0（domain/services/features 依赖方向） |
-| 代码质量 | detekt + ktlint + Android Lint（P4） | 未接入 | `make check-host` 0（baseline 起步） |
-| 证据链 | `tools/evidence_from_junit.py` → `evidence.py` → `verify_claim`（P4） | 未接入 | `tests-pass` PASS |
-| 负向注入 | `make sensors-selftest`（P5，宿主脚本） | 未接入 | 注入必红/恢复必绿 |
+| 文档 / 指令门禁 | `python3 tools/check_docs.py`、`python3 tools/check_agents.py` | 已 PASS（P1） | 保持 0 |
+| 计划状态 | `python3 tools/check_plan.py check` | 已 PASS（P1） | 保持 0 |
+| 静态门禁总入口 | `make verify-static`（check + 证据 schema + check-host） | 已 PASS（P4） | 保持 0 |
+| 宿主卫生检查 | `python3 tools/check_hygiene.py`（并入 check-host） | PASS（P3/P4） | 保持 0 |
+| 分层守卫 | `python3 tools/check_layers.py`（并入 check-host） | PASS（72 文件 0 违规） | 保持 0 |
+| 代码质量 | detekt + ktlint + Android Lint（`make check-quality`） | PASS（baseline 起步，0 失败） | 保持 0；新增问题失败 |
+| 证据链 | `tools/evidence_from_junit.py` → `evidence.py` → `verify_claim`（`make evidence-test`） | 就绪（P4） | `tests-pass` 证据 PASS |
+| 负向注入 | 手工注入矩阵（P5） | 待 P5 | 注入必红/恢复必绿 |
 
 ## 负向注入验收
 
@@ -144,21 +145,41 @@ verify:
 | `python3 tools/check_hygiene.py`（P3 后） | PASS（155 个跟踪文件，0 违规：无绝对符号链接/本机路径/构建产物） | 同上 | —（过程记录：P3） |
 | `:app:processDebugMainManifest` + `:app:processReleaseMainManifest` | PASS：debug 合并含 2 个 debug 入口，release 0；BUILD SUCCESSFUL 15s | JDK 17 / Gradle 8.10.2 | —（过程记录：P3） |
 | `./scripts/verify-unit.sh`（P3 死代码/入口清理后） | PASS：BUILD SUCCESSFUL 27s；JUnit 65 | JDK 17 / Gradle 8.10.2 | —（过程记录：P3；P4 生成证据 JSON） |
+| `make check-host`（P4） | PASS：分层 72 文件 0 违规；卫生 155 跟踪文件 0 违规 | 本机 python3 3.14 / git | —（过程记录：P4） |
+| `make check-quality`（P4） | PASS：detekt + ktlintCheck + lintDebug；三份 baseline 生成，0 失败 | JDK 17.0.13 / Gradle 8.10.2 / AGP 8.7.2 | —（过程记录：P4） |
+| `make evidence-test`（P4，提交后执行） | 待生成：要求 clean tree，生成 `tests-pass` 证据后 `verify-claim` 判定 | 同上 | （提交后回填 evidence ID） |
 
 ## 未验证项
 
 - 单测已在 P3 清理后复跑 PASS（65）；P4 取证时需 `--rerun-tasks` 生成 JUnit XML 证据。
 - release APK 未重新构建（native 依赖需下载 llama.cpp 源码）；已用 manifest 合并任务验证 debug/release 差异。
+- 质量基线为存量债记录（baseline 起步），不代表历史 findings 已修；新增问题会失败。
 - 真机（荣耀 ALP-AN00）未复跑；P3 清洁后需真机手测清单。
 - Android Lint/detekt 首次噪音未知；P4 用 baseline 起步。
 - 蒸馏后的历史数字（延迟/模型结构/自检）来自归档，本轮未复测；真机未复跑（P3 后手测）。
 
 ## 未提交改动
 
-- 无未提交改动（P3 清洁批次已提交）。
+- CONTRIBUTING.md
+- HARNESS.md
+- Makefile
+- app/build.gradle.kts
+- app/detekt-baseline.xml
+- app/ktlint-baseline.xml
+- app/lint-baseline.xml
+- build.gradle.kts
+- config/detekt/detekt.yml
+- docs/05-known-issues.md
+- docs/06-roadmap.md
+- harness/config.json
+- harness/plans/2026-11-10-android-adoption.md
+- references/verification.md
+- scripts/evidence-unit.sh
+- scripts/gradlew-local.sh
+- tools/check_plan.py
 
 ## 下一步
 
-1. 提交 P3（本计划 dirty 声明与本文件一致；提交后把本行改回「无未提交改动」）。
-2. P4 传感器与证据链：Makefile `check-host` 接入 `check_layers`/`check_hygiene`；detekt + ktlint + Android Lint（baseline 起步）；JUnit XML → `tools/evidence_from_junit.py` → `tools/evidence.py` → `make verify-claim`；pre-push 改为 `make verify-static && make check-host`；CI 增加宿主静态步骤。
+1. 提交 P4（本计划 dirty 声明与本文件一致；提交后把本行改回「无未提交改动」）。
+2. 生成并提交 `tests-pass` 证据：clean tree 上 `make evidence-test` → 证据文件提交 → 回填证据 ID → `make verify-claim` PASS。
 3. P5 验收：负向注入（删 docs 行/越层 import/跟踪产物/删测试/脏树证据）→ 全红→恢复绿；冷启动首访；计划 done/归档演练。

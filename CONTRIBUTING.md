@@ -70,29 +70,29 @@ adb shell am start -n com.duiyi.android/.debug.TranslationSelfTestActivity
 - llama.cpp 固定 tag `b10775`，由 CMake `FetchContent` 拉取；本机如需用本地源码，`export LLAMA_CPP_SRC=/path/to/llama.cpp`（该路径不入库），不要提交符号链接。
 - CMake 参数见 `app/build.gradle.kts`（`GGML_NATIVE=OFF`、`armv8.2-a+dotprod` 默认；`-PduiyiArmArch=` 可切 8×8 repack 对比）。
 
-## 7. 证据流程（P4 后启用）
-
-单测通过后可由 JUnit XML 生成结构化证据；当前标注“P4 后启用”：
+## 7. 证据流程（已启用）
 
 ```bash
-./scripts/verify-unit.sh --rerun-tasks
-python3 tools/evidence_from_junit.py --help   # JUnit XML → 证据字段
-python3 tools/evidence.py write --from-json -  # 写 harness/evidence/<UTC>-<claim>.json（要求 clean tree）
-make verify-claim                              # 三值：PASS / FAIL / UNVERIFIED
+make test             # 强制重跑 JVM 单测（JUnit XML → app/build/test-results/）
+git commit -am ...    # 证据要求 clean tree：先提交代码
+make evidence-test    # 跑测 → JUnit XML 聚合 → 写 harness/evidence/<UTC>-tests-pass.json
+make verify-claim     # 三值：PASS / FAIL / UNVERIFIED（无证据 = UNVERIFIED）
 ```
 
-无证据的“已验证”按未验证处理；环境不可用时写“未验证 + 手动步骤”。
+细节：`tools/evidence_from_junit.py` 负责计数（passed/failed/skipped），`tools/evidence.py` 绑定 commit 并要求 dirty=false。无证据的“已验证”按未验证处理；环境不可用时写“未验证 + 手动步骤”。
 
 ## 8. 门禁与 hooks
 
 ```bash
 make check            # 文档 / 指令 / 计划静态门禁
-make verify-static    # 再加证据 schema 校验
+make check-host       # 宿主静态：分层 + 卫生（CI 可跑）
+make check-quality    # detekt + ktlint + Android Lint（baseline 起步；本机）
+make verify-static    # check + 证据 schema + check-host
 make verify-claim     # 证据三值判定
 git config core.hooksPath .githooks   # 可选：启用 pre-push（SKIP_HARNESS_HOOK=1 可跳过）
 ```
 
-CI（`.github/workflows/verify.yml`）只跑静态门禁；单测与真机验证在本机完成。
+CI（`.github/workflows/verify.yml`）只跑静态门禁（含 `check-host`）；单测、质量与真机验证在本机完成。
 
 ## 9. 文档规则
 
@@ -105,6 +105,7 @@ CI（`.github/workflows/verify.yml`）只跑静态门禁；单测与真机验证
 | 现象 | 处置 |
 | --- | --- |
 | `SDK location not found` | 创建 `local.properties` 并写 `sdk.dir` |
+| Gradle 插件/依赖解析失败（`Plugin ... was not found`） | 检查 `~/.gradle/gradle.properties` 是否指向已停止的本机代理；临时用 `-Dhttp.proxyHost= -Dhttps.proxyHost= -Dhttp.proxyPort= -Dhttps.proxyPort=` 覆盖，或修正全局配置 |
 | CMake/NDK 报错或版本漂移 | 删 `app/.cxx/` 重构建；确认 NDK 由 AGP 下载 |
 | Gradle 守护进程版本异常 | `./gradlew --stop` 后用 JDK 17–21 重跑 |
 | 模型下载到 80 MB 就“完成” | 已知问题 D-3，见 [`docs/09-current-state.md`](docs/09-current-state.md) |

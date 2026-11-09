@@ -27,6 +27,7 @@
 | 死代码 | 已删除：4 个未引用节流常量、`InterpretationViewModel.debounceJobs`、`Copy.translationPackBody`、`ManagedAssets.indeterminate` 及其 UI 分支（测试同步移除构造参数） | 已修（P3，2026-11-10；单测 PASS） |
 | `gradlew.local.sh` 入库且含本机绝对路径 | 已迁为 `scripts/gradlew-local.sh`：路径改从 `ANDROID_HOME`/`JAVA_HOME`/`local.properties` 读取，不再含机器路径 | 已修（P3，2026-11-10） |
 | `.gitignore` 缺常见项 | 已补 `.kotlin/`、`*.hprof`、`captures/` | 已修（P3，2026-11-10） |
+| 代码质量存量债 | detekt/ktlint/Android Lint 已有 findings 写入三份 baseline（`app/*-baseline.xml`）；新增问题会让 `make check-quality` 失败 | 记录（P4，2026-11-10） |
 
 ### D-1 / D-2 补充说明
 

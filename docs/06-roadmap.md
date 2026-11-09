@@ -12,10 +12,10 @@
 | --- | --- | --- |
 | P2 文档蒸馏 | 当前 / 历史两层分离；本文件组 `03-decisions` / `05-known-issues` / `06-roadmap` 重写；`docs/README.md` 索引 100%；01–08 原文归档 `_archive/` | 文档门禁 PASS、索引无缺、历史只留归档 |
 | P3 清洁批次（已完成 2026-11-10） | D-6 分项已修：符号链接 → 固定 tag、debug 入口 → `src/debug`、死代码删除、`.gitignore` 补全、`gradlew.local.sh` → `scripts/gradlew-local.sh` | 跟踪文件 0 本机绝对路径（`check_hygiene` PASS）；65 单测 PASS |
-| P4 传感器 | `check_hygiene` / `check_layers`、detekt + ktlint + Android Lint、JUnit XML → evidence → `verify_claim`、pre-push/CI | `make check-host` 0；`tests-pass` 证据 PASS |
+| P4 传感器（已完成 2026-11-10） | `check-host`（分层/卫生）并入 `verify-static`；detekt + ktlint + Android Lint 接入 `check-quality`（baseline 起步）；JUnit XML → `verify-claim` 证据链 | `make check-host` 0；`make check-quality` 0；`tests-pass` 证据 PASS |
 | P5 验收 | 负向注入矩阵、冷启动首访 ≥4/5、计划 done/归档演练 | 注入必红、恢复必绿；首访可答 |
 
-**已完成（2026-11-10）**：P1 接入 harness-kit standard profile，`make check` / `make verify-static` PASS，65 个 JVM 单测为基线；P2 文档蒸馏（当前/历史两层、`_archive/`、决策表 D1–D15）；P3 清洁批次（符号链接/调试入口/死代码/本机路径/`.gitignore`，`check_hygiene` PASS）。
+**已完成（2026-11-10）**：P1 接入 harness-kit standard profile，`make check` / `make verify-static` PASS，65 个 JVM 单测为基线；P2 文档蒸馏（当前/历史两层、`_archive/`、决策表 D1–D15）；P3 清洁批次；P4 传感器与证据链（`check-host`/`check-quality`/`tests-pass` 证据）。
 
 ## Next（下一步，按优先级）
 

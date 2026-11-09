@@ -543,6 +543,10 @@ def normalize_path_token(token: str) -> str | None:
         return None
     if re.fullmatch(r"[0-9a-f]{7,40}", text):
         return None
+    # Local extension (kit 0.2.2 gap, upstream v0.2.3 candidate): extensionless root files
+    # such as Makefile cannot be declared otherwise; accept the common ones explicitly.
+    if text in ("Makefile", "GNUmakefile", "Dockerfile", "LICENSE", "NOTICE"):
+        return text
     if "/" in text or re.search(r"\.[A-Za-z0-9]{1,10}$", text):
         return text
     return None
