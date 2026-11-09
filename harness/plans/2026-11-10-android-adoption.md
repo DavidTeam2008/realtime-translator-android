@@ -75,7 +75,7 @@ verify:
 - [x] P2 文档蒸馏（2026-11-10）：当前 docs 重写（01/02/04/09 + README/AGENTS）；01–08/09/10 原文归档 `docs/_archive/`；新增 `docs/03-decisions.md`（D1–D15 唯一决策表）、`docs/05-known-issues.md`、`docs/06-roadmap.md`、`docs/07-on-device-llm.md`、`docs/08-latency.md`；根 `AGENTS.md`/`CONTRIBUTING.md`/`HARNESS.md`/`README.md` 与 `references/` 三篇重写；`make check` PASS（164 条链接/11 篇公开文档/预算内）
 - [x] P3 清洁批次（2026-11-10）：死代码/调试入口/llama.cpp 链接/本机脚本/`.gitignore` 全部处理；`check_layers` + `check_hygiene` PASS；65 单测复跑 PASS；debug/release manifest 合并已核
 - [x] P4 传感器与证据链（2026-11-10）：`check-host` 并入 `verify-static`；detekt + ktlint + Android Lint 接入 `check-quality`（三份 baseline 起步，0 失败）；`make evidence-test` 生成 `20261109T163805Z-tests-pass`（65/65），`verify-claim` PASS；文档同步
-- [ ] P5 验收（负向注入 + 冷启动首访 + 归档演练）
+- [ ] P5 验收（负向注入 + 冷启动首访 + 归档演练）——进行中（2026-11-10）
 
 ## 盘点结论
 
@@ -161,7 +161,8 @@ verify:
 
 ## 未提交改动
 
-- 无未提交改动（tests-pass 证据已提交）。
+- harness/plans/2026-11-10-android-adoption.md
+- tools/check_hygiene.py
 
 ## 下一步
 

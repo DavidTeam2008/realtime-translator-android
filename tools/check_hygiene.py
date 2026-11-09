@@ -61,7 +61,13 @@ def main(argv: list[str]) -> int:
 
     artifact_globs = list(hygiene.get("trackedArtifactGlobs") or [])
     root_allowlist = set(hygiene.get("rootAllowlist") or [])
-    local_patterns = [re.compile(pattern) for pattern in (hygiene.get("localPathPatterns") or [])]
+    local_patterns = []
+    for pattern in hygiene.get("localPathPatterns") or []:
+        if pattern.startswith("/") and pattern.endswith("/"):
+            # 绝对路径目录：要求前面不是标识符字符，避免把 features/home/ 当成 /home/。
+            local_patterns.append(re.compile(r"(?:^|[^A-Za-z0-9_.-])" + re.escape(pattern)))
+        else:
+            local_patterns.append(re.compile(pattern))
     skip_scan = tuple(hygiene.get("skipLocalPathScan") or ())
     max_bytes = int(hygiene.get("maxTrackedFileBytes") or 5 * 1024 * 1024)
 
