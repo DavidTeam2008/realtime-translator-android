@@ -161,8 +161,7 @@ verify:
 
 ## 未提交改动
 
-- harness/evidence/20261109T163805Z-tests-pass.json
-- harness/plans/2026-11-10-android-adoption.md
+- 无未提交改动（tests-pass 证据已提交）。
 
 ## 下一步
 
