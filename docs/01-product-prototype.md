@@ -7,7 +7,7 @@
 可交互界面：[`../prototype/platform.html`](../prototype/platform.html)
 架构：[`02-architecture.md`](02-architecture.md)
 端侧大模型：[`08-on-device-llm.md`](08-on-device-llm.md)
-产品语义对齐 iOS：[`../../../realtimeTranslatorOptimize/docs/09-platform-prototype.md`](../../../realtimeTranslatorOptimize/docs/09-platform-prototype.md)
+产品语义对齐 iOS 对译（语义以本项目产品规则为准；iOS 仓文档不在本仓复制）
 
 本文只写 **Android 上怎么呈现同一套产品**。任务怎么开始 / 结束、字幕打到哪一侧、同传禁外放，三端不得分叉。
 

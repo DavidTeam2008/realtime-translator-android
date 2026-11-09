@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "20260101T000000Z-tests-pass",
+  "claim": "tests-pass",
+  "createdAt": "2026-01-01T00:00:00Z",
+  "git": {
+    "commit": "0000000",
+    "dirty": false
+  },
+  "command": "./scripts/verify-unit.sh",
+  "environment": {
+    "project": "对译 Duiyi Android",
+    "toolchain": "android",
+    "os": "example"
+  },
+  "result": {
+    "status": "UNKNOWN",
+    "passed": 0,
+    "failed": 0,
+    "skipped": 0,
+    "durationSec": 0
+  },
+  "verdict": "UNVERIFIED",
+  "verifier": "example"
+}
