@@ -1,60 +1,60 @@
 # HARNESS · 对译 Duiyi Android
 
-> 一页说明本项目的 harness 怎么运转：**guides（指令） + sensors（门禁/证据）**。
-> 规则入口是 [`AGENTS.md`](AGENTS.md)；文档索引见 [`docs/README.md`](docs/README.md)。
+> 本仓 harness 地图（不是 kit 说明书）：**guides（指令）+ sensors（门禁/证据）**怎么落地、怎么用、边界在哪。
+> 规则入口 [`AGENTS.md`](AGENTS.md)；文档索引 [`docs/README.md`](docs/README.md)；当前进度见 active 计划。
 
-## 1. 问题
+## 1. 目标
 
-AI 编码 Agent 的“做完了”通常不可验证：指令越堆越乱、状态靠记忆、证据靠自述。
-harness 的目标是让完成声明**可复跑、可否定、可交接**，而不是增加更多文档。
+让“做完了”可复跑、可否定、可交接：规则有入口、状态有唯一真源、证据有判定、范围可拦截。
+失败声明应被机器拦住，而不是靠人记得。
 
-## 2. 五个子系统
+## 2. 五子系统落点
 
-| 子系统 | 作用 | 本项目落点 |
+| 子系统 | 作用 | 本仓资产 / 入口 |
 | --- | --- | --- |
-| Instructions | 该做什么、去哪读 | [`AGENTS.md`](AGENTS.md) + 嵌套 `AGENTS.md` + [`references/`](references/) |
-| State | 做到哪、上次结论 | `harness/plans/`（唯一 active 计划）+ `harness/evidence/` |
-| Verification | 怎么证明做完了 | `make check` / `make verify-static` / `make verify-claim` |
-| Scope | 允许改什么 | 计划 front matter 的 `scope.allow/deny` + L0/L1/L2 分级 |
-| Session Lifecycle | 怎么接手、怎么收尾 | `harness/README.md` 的接手/收尾步骤 + 计划状态机 |
+| Instructions | 该做什么、去哪读 | [`AGENTS.md`](AGENTS.md) + `docs/AGENTS.md` + `harness/AGENTS.md` + [`references/`](references/verification.md)；`make check` 校验预算/引用/链接 |
+| State | 做到哪、上次结论 | `harness/plans/`（唯一 active 计划）+ `harness/evidence/`（证据摘要）+ `harness/test-baseline.json` |
+| Verification | 怎么证明做完了 | `make check` / `make verify-static` / `make verify-claim`；单测 `./scripts/verify-unit.sh`；真机手工验收 |
+| Scope | 允许改什么 | 计划 front matter 的 `scope.allow/deny` + L0/L1/L2 分级（`make check` 内的 check_plan 拦越界） |
+| Session Lifecycle | 怎么接手、怎么收尾 | `harness/README.md` 接手步骤 + 计划状态机 + pre-push / CI（静态） |
 
-## 3. 落地矩阵
+## 3. 计划工作流（跨会话唯一状态源）
 
-| 资产 | 类别 | 入口 |
+1. 新建：`make plan TOPIC=<topic>` → 生成 `harness/plans/<日期>-<topic>.md`。
+2. 填 front matter：`id/status/level/owner/updated/scope.allow/acceptance/verify`；**同一时间只允许一个 active**。
+3. 改代码前写「目标与非目标 / 验收 / 改动范围」；越界先停，更新 `scope` 再继续。
+4. 每步把「命令 | 结果 | 环境 | 证据ID」写进「验证证据」表；未跑/未验证单列。
+5. 收尾：`make check` → `make verify-static`；完成改 `status: done` 并归档，交接写“下一步 1 条”。
+
+## 4. 证据工作流（P4 后启用）
+
+- 来源：`./scripts/verify-unit.sh` 产出的 JUnit XML。
+- 转换：`tools/evidence_from_junit.py` → `tools/evidence.py write`（自动填 UTC id / git commit / dirty；要求 clean tree）。
+- 判定：`make verify-claim` 固定输出 `CLAIM <id>: PASS|FAIL|UNVERIFIED`，聚合退出码 FAIL→1 / UNVERIFIED→2 / 全 PASS→0。
+- 规则：无证据 = 未验证；环境不可复核 = UNVERIFIED；原始产物（日志/构建目录）不入库，只存 1–3 KB 摘要。
+- 当前状态：证据链尚未生成首条 `tests-pass` 证据（P4 待做），因此测试类完成声明暂为 **UNVERIFIED**。
+
+## 5. kit 版本与升级
+
+- 采用版本：**harness-kit 0.2.2（standard profile）**；镜像源与 kit 源保持同版本，不 fork 本地脚本。
+- 升级方式：以 kit 镜像 `v0.2.2+` 重新渲染/对比差异，只同步 `tools/` 与 harness 骨架；项目自己的规则（AGENTS/CONTRIBUTING/README/docs/references）不回写 kit。
+- 升级后必须重跑 `make check` / `make verify-static`；`harness/config.json` 是路径/命令/预算/claims 的唯一配置源。
+
+## 6. 当前门禁边界（不要过度声称）
+
+| 层 | 覆盖 | 局限 |
 | --- | --- | --- |
-| 根/嵌套 `AGENTS.md`、`references/` | 前馈指令 | 直接阅读；`make check` 校验预算与引用 |
-| `docs/` 文档索引与事实 | 前馈指令 | `docs/README.md` 唯一索引 |
-| `make check` / `make verify-static` | 静态传感器 | 文档链接/围栏/索引/预算/指令/计划/证据 |
-| `harness/evidence/*.json` + `make verify-claim` | 证据传感器 | 三值判定（PASS/FAIL/UNVERIFIED） |
-| 计划 front matter + `make plan` | 状态传感器 | 唯一 active、验收、范围、未提交改动 |
-| CI / pre-push（若启用） | 自动化传感器 | `make verify-static` |
+| 静态（CI + 本地） | 文档链接/索引/围栏/预算、指令预算与敏感串、计划状态与证据 schema | 只证明结构，不证明行为正确 |
+| 单测（本地） | JVM 单测 65，floor 门禁 | 需要 JDK 17–21；不覆盖真机/引擎 |
+| 真机（手工） | 听写/翻译/延迟/权限 | 无自动化，环境不可用即“未验证” |
+| 宿主质量（P4） | `check-host`：detekt/ktlint/Lint/分层/卫生 | 尚未接入；当前 Makefile 无该目标 |
 
-## 4. 证据政策
-
-- 证据是**摘要**（1–3KB JSON）：命令、环境、计数、commit、verdict；原始产物不入库。
-- 无证据的“已验证”按未验证处理；换机器无法复核的产物（截图/构建目录）标 UNVERIFIED。
-- 三类判定：PASS（可复跑通过）/ FAIL（有反证）/ UNVERIFIED（证据不足，不算通过）。
-- 证据不防伪；高风险改动仍走独立复核与人工体验。
-
-## 5. 采用与升级
-
-- 模板版本与目录见 `harness/../`（kit 源与采用指南由引入方保存）。
-- 升级 profile 时只增补文件，不回写已改过的项目规则；升级后重跑 `make check` / `make verify-static`。
-
-## 6. 运行手册
-
-```bash
-make check            # 静态门禁
-make verify-static    # 静态 + 证据校验
-make verify-claim     # 证据三值判定
-make plan TOPIC=x     # 新建计划
-./scripts/verify-unit.sh      # 项目测试
-make release-check    # 发布前 strict（strict profile）
-make doctor           # 环境自检（strict profile）
-```
-
-## 7. 局限
-
-- 静态门禁不证明行为正确；动态层依赖项目自己的测试命令与运行环境。
+- CI（`.github/workflows/verify.yml`）只跑 `make verify-static`，不跑单测/真机。
 - 证据可伪造；三值判定提高说谎成本，不提供密码学保证。
-- AGENTS 有 token 预算，规则增长应优先放嵌套 `AGENTS.md` 或动作卡，而不是继续堆根文件。
+
+## 7. 月度审计（简）
+
+1. `make check`、`make verify-static`、`make verify-claim` 退出码与输出摘要。
+2. 五个子系统各打分 1–5，附证据（文件/命令/证据 ID）；无证据项降级。
+3. 检查：根 AGENTS 预算余量、active 计划是否唯一、未验证项是否清零、失败模式是否回写规则/门禁。
+4. 结论写 `harness/reviews/`，重复 ≥2 次的失败转成新门禁或规则。

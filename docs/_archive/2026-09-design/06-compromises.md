@@ -1,3 +1,5 @@
+> 状态：历史（原文归档，不改写）｜写于 2026-09/11，勿作现状引用｜当前对应：`docs/05-known-issues.md`
+
 # 06 功能与效果打折扣的点 · Android
 
 对照物：iOS 对译（`realtimeTranslatorOptimize`），SpeechAnalyzer 双路 + Translation.framework + AVSpeechSynthesizer + 可选 Apple 智能。本节写 **Android 版相对它会差在哪、界面上如何诚实**。不把折扣藏进「后续优化」。

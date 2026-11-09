@@ -72,7 +72,7 @@ verify:
 ## 进度
 
 - [x] P1 接入 scaffold（2026-11-10）：kit 0.2.2 init standard `--language android`；修复 10 篇文档索引、跨仓断链、评估稿归档、config/baseline（unit floor=65）；`make check` / `make verify-static` PASS；scaffold 提交 `5179fdd`
-- [ ] P2 文档蒸馏
+- [x] P2 文档蒸馏（2026-11-10）：当前 docs 重写（01/02/04/09 + README/AGENTS）；01–08/09/10 原文归档 `docs/_archive/`；新增 `docs/03-decisions.md`（D1–D15 唯一决策表）、`docs/05-known-issues.md`、`docs/06-roadmap.md`、`docs/07-on-device-llm.md`、`docs/08-latency.md`；根 `AGENTS.md`/`CONTRIBUTING.md`/`HARNESS.md`/`README.md` 与 `references/` 三篇重写；`make check` PASS（164 条链接/11 篇公开文档/预算内）
 - [ ] P3 清洁批次
 - [ ] P4 传感器与证据链
 - [ ] P5 验收（负向注入 + 冷启动首访 + 归档演练）
@@ -140,19 +140,62 @@ verify:
 | `make check`（P1 接入后） | PASS（exit 0） | Android 仓 `5179fdd` 工作树；python3 标准库 | —（过程记录：P1） |
 | `make verify-static`（P1 接入后） | PASS（exit 0） | 同上 | —（过程记录：P1） |
 | `./scripts/verify-unit.sh`（P1 复跑） | PASS（BUILD SUCCESSFUL；JUnit 65 用例基线） | 本机 JDK 17 / Gradle 8.10.2 | —（过程记录：P1；P4 前未生成证据 JSON） |
+| `make check`（P2 文档蒸馏后） | PASS（exit 0；相对链接 164 条全部存在、围栏成对、docs 索引 18 个目标、公开文档 11/16、4 个指令文件预算内、敏感串 0） | Android 仓工作树；python3 标准库 | —（过程记录：P2） |
 
 ## 未验证项
 
 - P1 单测为接入前实测基线（65 用例）；接入后仅复跑到 UP-TO-DATE，P4 取证时需 `--rerun-tasks` 重跑。
 - 真机（荣耀 ALP-AN00）未复跑；P3 清洁后需真机手测清单。
 - Android Lint/detekt 首次噪音未知；P4 用 baseline 起步。
+- 蒸馏后的历史数字（延迟/模型结构/自检）来自归档，本轮未复测；真机未复跑（P3 后手测）。
 
 ## 未提交改动
 
-- 无未提交改动（计划已提交）。
+- AGENTS.md
+- CONTRIBUTING.md
+- HARNESS.md
+- README.md
+- docs/01-product-prototype.md
+- docs/01-product.md
+- docs/02-architecture.md
+- docs/03-decisions.md
+- docs/03-tech-choices.md
+- docs/04-implementation-principles.md
+- docs/04-runtime.md
+- docs/05-known-issues.md
+- docs/05-obstacles.md
+- docs/06-compromises.md
+- docs/06-roadmap.md
+- docs/07-on-device-llm.md
+- docs/07-roadmap.md
+- docs/08-latency.md
+- docs/08-on-device-llm.md
+- docs/09-current-state.md
+- docs/10-latency-optimization.md
+- docs/AGENTS.md
+- docs/README.md
+- docs/_archive/2026-09-design/01-product-prototype.md
+- docs/_archive/2026-09-design/02-architecture.md
+- docs/_archive/2026-09-design/03-tech-choices.md
+- docs/_archive/2026-09-design/04-implementation-principles.md
+- docs/_archive/2026-09-design/05-obstacles.md
+- docs/_archive/2026-09-design/06-compromises.md
+- docs/_archive/2026-09-design/07-roadmap.md
+- docs/_archive/2026-09-design/08-on-device-llm.md
+- docs/_archive/2026-11/09-current-state.md
+- docs/_archive/2026-11/10-latency-optimization.md
+- docs/_archive/README.md
+- docs/_archive/prototype/platform.html
+- harness/config.json
+- harness/plans/2026-11-10-android-adoption.md
+- references/contracts.md
+- references/verification.md
+- references/workflow.md
+- tools/check_hygiene.py
+- tools/check_layers.py
 
 ## 下一步
 
-1. 提交本计划（dirty 声明与本文件一致）。
-2. P2 文档蒸馏：先写 `docs/README.md`（当前 + `_archive` 双表），再按上方映射重写/归档。
-3. P3 起按清单逐项提交（每项单独 commit），保持 65 单测全绿。
+1. 提交 P2（本计划 dirty 声明与本文件一致；提交后把本行改回「无未提交改动」）。
+2. P3 清洁批次：死代码 → debug 入口 → llama.cpp 符号链接 → `gradlew.local.sh` 迁 `scripts/` → `.gitignore`；每项单独 commit，保持 65 单测全绿。
+3. P4 传感器与证据链（`check-host` 已备脚本：`tools/check_layers.py` PASS、`tools/check_hygiene.py` 待 P3 清零）。

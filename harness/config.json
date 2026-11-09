@@ -41,16 +41,15 @@
       "AGENTS.md",
       "docs/README.md",
       "docs/AGENTS.md",
-      "docs/01-product-prototype.md",
+      "docs/01-product.md",
       "docs/02-architecture.md",
-      "docs/03-tech-choices.md",
-      "docs/04-implementation-principles.md",
-      "docs/05-obstacles.md",
-      "docs/06-compromises.md",
-      "docs/07-roadmap.md",
-      "docs/08-on-device-llm.md",
-      "docs/09-current-state.md",
-      "docs/10-latency-optimization.md"
+      "docs/03-decisions.md",
+      "docs/04-runtime.md",
+      "docs/05-known-issues.md",
+      "docs/06-roadmap.md",
+      "docs/07-on-device-llm.md",
+      "docs/08-latency.md",
+      "docs/09-current-state.md"
     ],
     "publicBudget": 16,
     "rootMarkdownAllowed": [
@@ -106,5 +105,92 @@
       "skillsSource": ".dsh/skills",
       "skillsTarget": ".claude/skills"
     }
+  },
+  "layers": {
+    "sourceRoot": "app/src/main/java/com/duiyi/android",
+    "domainForbidden": [
+      "android.",
+      "androidx.",
+      "com.duiyi.android.app",
+      "com.duiyi.android.features",
+      "com.duiyi.android.services",
+      "com.duiyi.android.designsystem"
+    ],
+    "servicesForbidden": [
+      "com.duiyi.android.features",
+      "com.duiyi.android.designsystem"
+    ],
+    "featuresForbiddenImports": [
+      "com.duiyi.android.services",
+      "androidx.room",
+      "android.database"
+    ],
+    "featuresServicesAllowlist": [
+      "com.duiyi.android.services.ComputeGate",
+      "com.duiyi.android.services.LatencyProbe",
+      "com.duiyi.android.services.assets.DeviceAssetCatalog",
+      "com.duiyi.android.services.speech.SherpaModelStore",
+      "com.duiyi.android.services.speech.SpeechEngineException",
+      "com.duiyi.android.services.speech.SpeechIntentBridge",
+      "com.duiyi.android.services.speech.SpeechRecognizerFactory",
+      "com.duiyi.android.services.translation.TranslationPump"
+    ],
+    "engineClasses": [
+      "SherpaSpeech",
+      "AndroidSpeechEngine",
+      "GemmaTranslator",
+      "LlamaNative"
+    ],
+    "engineAllowedPaths": [
+      "app/src/main/java/com/duiyi/android/services/**",
+      "app/src/main/java/com/duiyi/android/app/**",
+      "app/src/main/java/com/duiyi/android/debug/**"
+    ]
+  },
+  "hygiene": {
+    "trackedArtifactGlobs": [
+      "app/build/**",
+      "app/.cxx/**",
+      "**/__pycache__/**",
+      "*.pyc",
+      "*.class",
+      "*.apk",
+      "*.aab",
+      "*.log",
+      "*.hprof",
+      ".DS_Store",
+      "local.properties",
+      "**/.gradle/**",
+      "**/.idea/**",
+      "**/.kotlin/**"
+    ],
+    "rootAllowlist": [
+      "README.md",
+      "AGENTS.md",
+      "HARNESS.md",
+      "CONTRIBUTING.md",
+      "Makefile",
+      ".gitignore",
+      "build.gradle.kts",
+      "settings.gradle.kts",
+      "gradle.properties",
+      "gradlew",
+      "gradlew.bat",
+      "gradlew.local.sh"
+    ],
+    "localPathPatterns": [
+      "/local/",
+      "/local/",
+      "/home/"
+    ],
+    "skipLocalPathScan": [
+      "docs/_archive/",
+      "harness/config.json",
+      "harness/plans/",
+      "harness/reviews/",
+      "tools/check_agents.py",
+      "tools/check_hygiene.py"
+    ],
+    "maxTrackedFileBytes": 5242880
   }
 }

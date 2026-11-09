@@ -1,3 +1,5 @@
+> 状态：历史（原文归档，不改写）｜写于 2026-09/11，勿作现状引用｜当前对应：`docs/03-decisions.md`
+
 # 03 技术选型 · Android
 
 > ⚠️ **本文写于实现之前，翻译一节的结论已被推翻。** 真机（荣耀 ALP-AN00）上 ML Kit 这条路没有走下去，实际实现是 **llama.cpp + TranslateGemma 4B**（翻译）与 **sherpa-onnx SenseVoice int8 + Silero VAD**（荣耀机听写）。

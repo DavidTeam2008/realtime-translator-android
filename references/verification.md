@@ -1,40 +1,42 @@
-# 验证矩阵与运行手册
+# 验证矩阵与命令（唯一入口）
 
-> 触发：跑检查、补测试、写证据或宣称“完成”前读。
-> 命令来自 `harness/config.json`；证据格式见 `harness/evidence/`（该 profile 启用时）。
+> 触发：跑检查、补测试、写证据或宣称「完成」前读。配置 [`../harness/config.json`](../harness/config.json)；流程 [`workflow.md`](workflow.md)。
 
-## 1. 三层验证
+## 1. 三层门禁
 
-| 层 | 内容 | 入口 | 期望 |
-| --- | --- | --- | --- |
-| 静态 | 文档 / 指令 / 链接 / 预算 / 计划 | `make check` | 退出 0；改动后必跑 |
-| 验证 | 静态 + 证据校验（三值） | `make verify-static` | 退出 0；完成前必跑 |
-| 测试 | 项目自带测试命令 | `./scripts/verify-unit.sh` | 退出 0；按变更风险选择范围 |
+| 层 | 命令 | 判定 |
+| --- | --- | --- |
+| L0 静态 | `make check`（docs/agents/plan） | 秒级；改动后必跑 |
+| standard | `make verify-static`（check + 证据 schema） | 完成前必跑 |
+| 证据三值 | `make verify-claim` | PASS/FAIL/UNVERIFIED；无证据 = UNVERIFIED（exit 2） |
 
 ## 2. 变更类型 → 最低验证
 
-| 变更 | 最低验证 |
-| --- | --- |
-| 纯文档 / 注释 / 规则 | `make check` |
-| 单模块逻辑 | `./scripts/verify-unit.sh` 的相关用例 |
-| 接口 / 数据结构 | 相关测试 + 兼容性自查 |
-| 配置 / 构建 / CI | `make verify-static` + 一次干净环境复跑 |
-| 发布相关 | `make verify-static` + 回滚步骤演练（可记录为未验证） |
+- 文档/规则：`make check`。domain 与 ViewModel 逻辑：`./scripts/verify-unit.sh`。services/引擎/持久化：真机手工。构建/配置/CI：`make verify-static` + 干净环境复跑。发布：verify-static + verify-claim + 回滚步骤。
 
-## 3. 证据与判定
+## 3. JVM 单测
 
-- 判定只有三值：**PASS / FAIL / UNVERIFIED**；没有证据的“已验证”一律按 UNVERIFIED 处理。
-- 证据记录命令、退出码、环境、时间与提交号；原始大产物不入库，只存摘要与引用。
-- 跳过用例必须有白名单与原因；skip 数量变化要显式记录。
-- 环境不可用（缺工具 / 缺权限 / 无设备）时写“未验证 + 手动步骤”，不得写成通过。
+- `./scripts/verify-unit.sh`（JUnit XML 在 `app/build/test-results/`；P4 后自动转证据）；基线 65、skip 0，门槛 [`../harness/test-baseline.json`](../harness/test-baseline.json)；重跑加 `--rerun-tasks`。
 
-## 4. 失败处理
+## 4. 真机手工（荣耀 ALP-AN00 / Android 14）
 
-- 先定位原因再改；环境、网络、已知不稳定用例不计入“修复次数”。
-- 同一失败修复 2 次仍不过，或同一子任务 3 轮无进展：停止并上报（见 [`workflow.md`](workflow.md)）。
-- 不为了变绿删除断言、放宽计数或扩大 skip 白名单。
+- 构建安装：`./gradlew assembleDebug`（JDK 17–21）+ `adb install -r app/build/outputs/apk/debug/app-debug.apk`。
+- 主路径：面对面/同传/会议/历史；延迟用 `adb shell am start -n com.duiyi.android/.debug.LatencyDebugActivity`，平放聊 8–10 轮，`adb pull /data/data/com.duiyi.android/files/latency-probe.txt`，读中位数 speech_to_endpoint、final_decode/final_rtf、joiner_hold、gen；自检用 `.debug.TranslationSelfTestActivity` 看 prepare/prefix/suffix/gen ms。
+- 口径与数字见 [`../docs/08-latency.md`](../docs/08-latency.md)；单次样本不算结论。
 
-## 5. 计划与收尾
+## 5. 不该跑的
 
-- 跨会话任务在 `harness/plans/` 建计划；每步把“命令 / 结果 / 环境”写进验证证据表。
-- 收尾：更新计划 → 跑 `make verify-static` → 记录未验证项 → 再交接或提交。
+- 不用模拟器证性能（native 与 SoC 差异大）；不借未信任设备（现场音频）；不在非 JDK 17–21 环境硬跑单测。
+
+## 6. CI 边界
+
+- `.github/workflows/verify.yml` 只跑静态（ubuntu）；JVM 单测在本机；native/NDK 与真机不进 CI。
+
+## 7. 已知坑
+
+- JDK 17–21 + Gradle 8.10.2 + AGP 8.7.2：AS 内置 JBR25 报 `25.0.2`，改用 17–21 的 JDK 或本地 shim。
+- `.cxx` 缓存异常：删 `app/.cxx` 重建。模型权重（2.49GB）首次下载失败重试。真机需亮屏解锁。
+
+## 8. 未验证写法
+
+- 写「未验证 + 手动步骤 + 原因」，不得写成通过；环境问题≠代码问题。
