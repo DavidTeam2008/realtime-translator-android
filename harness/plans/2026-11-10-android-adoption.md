@@ -74,7 +74,7 @@ verify:
 - [x] P1 接入 scaffold（2026-11-10）：kit 0.2.2 init standard `--language android`；修复 10 篇文档索引、跨仓断链、评估稿归档、config/baseline（unit floor=65）；`make check` / `make verify-static` PASS；scaffold 提交 `5179fdd`
 - [x] P2 文档蒸馏（2026-11-10）：当前 docs 重写（01/02/04/09 + README/AGENTS）；01–08/09/10 原文归档 `docs/_archive/`；新增 `docs/03-decisions.md`（D1–D15 唯一决策表）、`docs/05-known-issues.md`、`docs/06-roadmap.md`、`docs/07-on-device-llm.md`、`docs/08-latency.md`；根 `AGENTS.md`/`CONTRIBUTING.md`/`HARNESS.md`/`README.md` 与 `references/` 三篇重写；`make check` PASS（164 条链接/11 篇公开文档/预算内）
 - [x] P3 清洁批次（2026-11-10）：死代码/调试入口/llama.cpp 链接/本机脚本/`.gitignore` 全部处理；`check_layers` + `check_hygiene` PASS；65 单测复跑 PASS；debug/release manifest 合并已核
-- [x] P4 传感器与证据链（2026-11-10）：`check-host`（`check_layers` + `check_hygiene`）并入 `verify-static`；detekt + ktlint + Android Lint 接入 `check-quality`（三份 baseline 起步，0 失败）；`make test` / `make evidence-test` 证据链就绪；`references/verification.md` 等文档同步
+- [x] P4 传感器与证据链（2026-11-10）：`check-host` 并入 `verify-static`；detekt + ktlint + Android Lint 接入 `check-quality`（三份 baseline 起步，0 失败）；`make evidence-test` 生成 `20261109T163805Z-tests-pass`（65/65），`verify-claim` PASS；文档同步
 - [ ] P5 验收（负向注入 + 冷启动首访 + 归档演练）
 
 ## 盘点结论
@@ -147,20 +147,22 @@ verify:
 | `./scripts/verify-unit.sh`（P3 死代码/入口清理后） | PASS：BUILD SUCCESSFUL 27s；JUnit 65 | JDK 17 / Gradle 8.10.2 | —（过程记录：P3；P4 生成证据 JSON） |
 | `make check-host`（P4） | PASS：分层 72 文件 0 违规；卫生 155 跟踪文件 0 违规 | 本机 python3 3.14 / git | —（过程记录：P4） |
 | `make check-quality`（P4） | PASS：detekt + ktlintCheck + lintDebug；三份 baseline 生成，0 失败 | JDK 17.0.13 / Gradle 8.10.2 / AGP 8.7.2 | —（过程记录：P4） |
-| `make evidence-test`（P4，提交后执行） | 待生成：要求 clean tree，生成 `tests-pass` 证据后 `verify-claim` 判定 | 同上 | （提交后回填 evidence ID） |
+| `make evidence-test`（2026-11-10，clean tree @ `294a9f9`） | **PASS**：`./scripts/verify-unit.sh --rerun-tasks` 11s → 65 passed / 0 failed / 0 skipped → `evidence.py` 写入证据；`make verify-claim` → PASS | JDK 17.0.13 / Gradle 8.10.2 / AGP 8.7.2；JVM unit | `20261109T163805Z-tests-pass` |
 
 ## 未验证项
 
 - 单测已在 P3 清理后复跑 PASS（65）；P4 取证时需 `--rerun-tasks` 生成 JUnit XML 证据。
 - release APK 未重新构建（native 依赖需下载 llama.cpp 源码）；已用 manifest 合并任务验证 debug/release 差异。
 - 质量基线为存量债记录（baseline 起步），不代表历史 findings 已修；新增问题会失败。
+- `tests-pass` 证据为 JVM 单测（65）；真机与延迟仍未在本轮复跑，相关完成声明仍按 UNVERIFIED 处理。
 - 真机（荣耀 ALP-AN00）未复跑；P3 清洁后需真机手测清单。
 - Android Lint/detekt 首次噪音未知；P4 用 baseline 起步。
 - 蒸馏后的历史数字（延迟/模型结构/自检）来自归档，本轮未复测；真机未复跑（P3 后手测）。
 
 ## 未提交改动
 
-- 无未提交改动（P4 传感器与证据链代码已提交；tests-pass 证据在下一步生成并单独提交）。
+- harness/evidence/20261109T163805Z-tests-pass.json
+- harness/plans/2026-11-10-android-adoption.md
 
 ## 下一步
 

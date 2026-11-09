@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "claim": "tests-pass",
+  "command": "./scripts/verify-unit.sh",
+  "environment": {
+    "toolchain": "JDK 17 / Gradle 8.10.2 / AGP 8.7.2",
+    "device": "unit-jvm",
+    "suite": "app testDebugUnitTest"
+  },
+  "result": {
+    "status": "SUCCEEDED",
+    "passed": 65,
+    "failed": 0,
+    "skipped": 0,
+    "durationSec": 0.074,
+    "artifacts": [
+      "app/build/test-results/testDebugUnitTest/TEST-com.duiyi.android.domain.CaptionModelsTest.xml",
+      "app/build/test-results/testDebugUnitTest/TEST-com.duiyi.android.domain.ManagedAssetRulesTest.xml",
+      "app/build/test-results/testDebugUnitTest/TEST-com.duiyi.android.domain.PaneStateTest.xml",
+      "app/build/test-results/testDebugUnitTest/TEST-com.duiyi.android.domain.SpokenTextNormalizeTest.xml",
+      "app/build/test-results/testDebugUnitTest/TEST-com.duiyi.android.domain.TranslationPolicyTest.xml",
+      "app/build/test-results/testDebugUnitTest/TEST-com.duiyi.android.domain.routing.LanguageRouterTest.xml",
+      "app/build/test-results/testDebugUnitTest/TEST-com.duiyi.android.domain.routing.SpokenSegmentJoinerTest.xml",
+      "app/build/test-results/testDebugUnitTest/TEST-com.duiyi.android.domain.routing.StablePrefixTrackerTest.xml",
+      "app/build/test-results/testDebugUnitTest/TEST-com.duiyi.android.domain.routing.UtteranceAssemblerTest.xml",
+      "app/build/test-results/testDebugUnitTest/TEST-com.duiyi.android.services.persistence.InMemoryTaskStoreTest.xml",
+      "app/build/test-results/testDebugUnitTest/TEST-com.duiyi.android.services.speech.SenseVoiceTextTest.xml",
+      "app/build/test-results/testDebugUnitTest/TEST-com.duiyi.android.services.speech.SherpaModelSpecTest.xml",
+      "app/build/test-results/testDebugUnitTest/TEST-com.duiyi.android.services.speech.SpeechEnginePolicyTest.xml",
+      "app/build/test-results/testDebugUnitTest/TEST-com.duiyi.android.services.speech.SpeechTextRouterTest.xml",
+      "app/build/test-results/testDebugUnitTest/TEST-com.duiyi.android.services.translation.GemmaModelSpecTest.xml",
+      "app/build/test-results/testDebugUnitTest/TEST-com.duiyi.android.services.translation.TranslateGemmaPromptTest.xml"
+    ]
+  },
+  "verdict": "PASS",
+  "verifier": "tools/evidence.py@0.2.2",
+  "notes": "P4：JVM 单测证据；计数口径 = JUnit XML testcase 聚合",
+  "id": "20261109T163805Z-tests-pass",
+  "createdAt": "2026-11-09T16:38:05Z",
+  "git": {
+    "commit": "294a9f91142d",
+    "dirty": false
+  }
+}
