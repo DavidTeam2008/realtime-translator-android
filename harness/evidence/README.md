@@ -19,7 +19,7 @@
 
 - 用工具写入（自动填 id / 时间 / git 信息）：`python3 tools/evidence.py write --claim tests-pass`；要求工作树干净。
 - 全量校验：`make check-evidence`（或 `python3 tools/evidence.py validate`）。
-- 三值判定：`make verify-claim`（或 `python3 tools/verify_claim.py --all`）；无证据 = FAIL，环境不可复核 = UNVERIFIED。
+- 三值判定：`make verify-claim`（或 `python3 tools/verify_claim.py --all`）；无证据 = UNVERIFIED（exit 2），有证据但记录 FAIL = FAIL，环境不可复核 = UNVERIFIED。
 
 ## 4. 入库策略
 

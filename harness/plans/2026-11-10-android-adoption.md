@@ -1,6 +1,7 @@
 ---
 id: 2026-11-10-android-adoption
-status: active
+status: done
+submitted: 294a9f9
 level: L2
 owner: david
 updated: 2026-11-10
@@ -75,7 +76,7 @@ verify:
 - [x] P2 文档蒸馏（2026-11-10）：当前 docs 重写（01/02/04/09 + README/AGENTS）；01–08/09/10 原文归档 `docs/_archive/`；新增 `docs/03-decisions.md`（D1–D15 唯一决策表）、`docs/05-known-issues.md`、`docs/06-roadmap.md`、`docs/07-on-device-llm.md`、`docs/08-latency.md`；根 `AGENTS.md`/`CONTRIBUTING.md`/`HARNESS.md`/`README.md` 与 `references/` 三篇重写；`make check` PASS（164 条链接/11 篇公开文档/预算内）
 - [x] P3 清洁批次（2026-11-10）：死代码/调试入口/llama.cpp 链接/本机脚本/`.gitignore` 全部处理；`check_layers` + `check_hygiene` PASS；65 单测复跑 PASS；debug/release manifest 合并已核
 - [x] P4 传感器与证据链（2026-11-10）：`check-host` 并入 `verify-static`；detekt + ktlint + Android Lint 接入 `check-quality`（三份 baseline 起步，0 失败）；`make evidence-test` 生成 `20261109T163805Z-tests-pass`（65/65），`verify-claim` PASS；文档同步
-- [ ] P5 验收（负向注入 + 冷启动首访 + 归档演练）——进行中（2026-11-10）
+- [x] P5 验收（2026-11-10）：12 项负向注入全部命中门禁（含修出 check_layers 前缀匹配 bug）；冷启动陌生代理 5/5 可答；计划 done/归档演练通过
 
 ## 盘点结论
 
@@ -123,15 +124,43 @@ verify:
 | 证据链 | `tools/evidence_from_junit.py` → `evidence.py` → `verify_claim`（`make evidence-test`） | 就绪（P4） | `tests-pass` 证据 PASS |
 | 负向注入 | 手工注入矩阵（P5） | 待 P5 | 注入必红/恢复必绿 |
 
-## 负向注入验收
+## 负向注入验收（P5，2026-11-10）
 
-- [ ] 删除一条文档索引行 → `check_docs.py` 变红，恢复后变绿
-- [ ] 指令层违规（超预算 / 错 `§` 号 / 敏感串）→ `check_agents.py` 变红
-- [ ] 跟踪构建产物/绝对符号链接/本机路径 → `check_hygiene.py` 变红
-- [ ] 越层 import → `check_layers.py` 变红
-- [ ] 删一个测试 → `unit.floor=65` 触发 `verify_claim` FAIL
-- [ ] 证据缺失/陈旧 → `verify_claim.py` 非 PASS（exit 2 / 1）
-- 记录每项一次「注入前 exit / 注入后 exit / 恢复后 exit」作为证据
+每项：注入 → 命中门禁（期望非 0）→ 恢复 → 期望 0。全部实测通过；测试后工作树恢复干净。
+
+| # | 注入 | 命中门禁 | 注入 exit | 恢复后 exit |
+| --- | --- | --- | --- | --- |
+| 1 | `docs/99-inject.md` 未登记 | `check_docs` | 1 | 0 |
+| 2 | 文档加断链 `missing-file.md` | `check_docs` | 1 | 0 |
+| 3 | 文档加未闭合代码围栏 | `check_docs` | 1 | 0 |
+| 4 | 根目录新增 `NOTES.md` | `check_docs`（rootMarkdownAllowed） | 1 | 0 |
+| 5 | `AGENTS.md` 追加超预算文本 | `check_agents`（token 预算） | 1 | 0 |
+| 6 | `AGENTS.md` 写入 `/local/...` | `check_agents`（敏感串） | 1 | 0 |
+| 7 | 复制出第二个 active 计划 | `check_plan`（唯一 active） | 1 | 0 |
+| 8 | domain 新增 `import androidx.room.Room` | `check_layers` | 1（修复前 0，见下） | 0 |
+| 9 | `README.md` 写入 `/local/...` | `check_hygiene` | 1 | 0 |
+| 10 | 证据 `passed` 改为 64（模拟删测试后取证） | `verify_claim`（floor=65） | 1 | 0 |
+| 11 | 临时移走 `tests-pass` 证据 | `verify_claim` | 2（UNVERIFIED） | 0 |
+| 12 | 脏树下 `evidence.py write` | `evidence.py`（clean tree 要求） | 1 | 0 |
+
+**注入过程中修出的真实缺陷**：
+
+1. `check_layers.py` 的 `matches_any` 对以 `.` 结尾的前缀（`androidx.`）双重拼接，导致 domain 层 Android import 不会命中 → 修复后 #8 从 exit 0 变 exit 1（负向注入直接证明门禁此前是空转）。
+2. `check_hygiene.py` 把 `features/home/` 误判为 `/home/` 本机路径（ktlint baseline 触发）→ 改为绝对路径边界匹配。
+
+## 冷启动首访（P5，2026-11-10）
+
+- 执行者：**无本仓上下文的陌生代理**（只读仓库，不运行构建）；限时走查 README → docs/README → CONTRIBUTING → AGENTS → HARNESS → active 计划。
+- 结果：**5/5 可答**（是什么/进度/怎么跑/怎么验证/已知问题与 kit 复制）。
+- 发现的卡点与整改（均已在本次 P5 提交处理）：
+  1. 文档/计划状态滞后（README、docs/06、docs/09、evidence README 仍写「进行中」）→ 已改；
+  2. kit 复制命令只存在于 review 评估稿、不在官方阅读链 → 已迁入 `HARNESS.md` §5；
+  3. `harness/evidence/README.md` 写「无证据 = FAIL」，与 `verify_claim.py` 三值实现（UNVERIFIED）冲突 → 已改。
+
+## done / 归档演练（P5，2026-11-10）
+
+1. 本计划置 `status: done` + `submitted: 294a9f9`（`tests-pass` 证据的 commit），`check_plan.py check` PASS（done 证据绑定校验生效）。
+2. 提交后移入 `harness/plans/_archive/`，并更新所有指向本计划的相对链接；`make check` 在「无 active 计划」状态下 PASS。
 
 ## 验证证据
 
@@ -148,6 +177,8 @@ verify:
 | `make check-host`（P4） | PASS：分层 72 文件 0 违规；卫生 155 跟踪文件 0 违规 | 本机 python3 3.14 / git | —（过程记录：P4） |
 | `make check-quality`（P4） | PASS：detekt + ktlintCheck + lintDebug；三份 baseline 生成，0 失败 | JDK 17.0.13 / Gradle 8.10.2 / AGP 8.7.2 | —（过程记录：P4） |
 | `make evidence-test`（2026-11-10，clean tree @ `294a9f9`） | **PASS**：`./scripts/verify-unit.sh --rerun-tasks` 11s → 65 passed / 0 failed / 0 skipped → `evidence.py` 写入证据；`make verify-claim` → PASS | JDK 17.0.13 / Gradle 8.10.2 / AGP 8.7.2；JVM unit | `20261109T163805Z-tests-pass` |
+| 负向注入 12 项（P5） | **PASS**：12/12 命中门禁（1→docs/agents/plan/evidence，2→dry-tree；详表见上），恢复后全部 0；修复 check_layers 前缀 bug、check_hygiene 误报 | 本机 python3 3.14 / git | —（过程记录：P5 负向注入） |
+| 冷启动首访（P5） | **PASS**：陌生代理 5/5 可答；Top 3 卡点（状态滞后/kit 命令不在阅读链/三值语义冲突）已修复 | 只读仓库；agent 走查 | —（过程记录：P5 冷启动） |
 
 ## 未验证项
 
@@ -165,6 +196,5 @@ verify:
 
 ## 下一步
 
-1. 提交 P4（本计划 dirty 声明与本文件一致；提交后把本行改回「无未提交改动」）。
-2. 生成并提交 `tests-pass` 证据：clean tree 上 `make evidence-test` → 证据文件提交 → 回填证据 ID → `make verify-claim` PASS。
-3. P5 验收：负向注入（删 docs 行/越层 import/跟踪产物/删测试/脏树证据）→ 全红→恢复绿；冷启动首访；计划 done/归档演练。
+1. 本计划已 done 并归档；后续产品方向按 `docs/06-roadmap.md` 的 Next（延迟测量优先，不先调 VAD/HOLD）。
+2. 新任务用 `make plan TOPIC=<topic>` 起新计划；证据与门禁流程见 `HARNESS.md`。

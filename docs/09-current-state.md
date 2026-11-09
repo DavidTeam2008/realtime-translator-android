@@ -51,7 +51,7 @@
 | 真机手工验证 | ⚠️ 仅荣耀 ALP-AN00（型号） | 面对面主路径、同传、会议、历史、导出在开发真机手测过；非荣耀机型未验证 |
 | 延迟数字 | 📎 见 08 | 端到端/首字/生成等数字与日期在 [`08-latency.md`](08-latency.md) |
 | 端侧 LLM 数字 | 📎 见 07 | 加载、前缀预热、生成数字与设备口径在 [`07-on-device-llm.md`](07-on-device-llm.md) |
-| 证据链 | 🚧 进行中 | `make verify-static` 已接；`tests-pass` 证据与 JUnit 适配在 harness 改造计划 P4（见下一节） |
+| 证据链 | ✅ 已启用 | `make verify-static` 校验 schema，`make verify-claim` 三值判定；`tests-pass` 证据 `20261109T163805Z-tests-pass`（65/65，P4） |
 | 非荣耀真机 / 泰越 / 总结 / 音频策略 | ❌ 未验证 | 只做了代码与 JVM 测试；不得写成已通过 |
 
 > 验证规则（完成声明、证据三值、未验证写法）见 [`../references/verification.md`](../references/verification.md)。

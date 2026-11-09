@@ -57,7 +57,8 @@ def imports_of(path: Path) -> list[str]:
 
 def matches_any(value: str, prefixes: list[str]) -> str | None:
     for prefix in prefixes:
-        if value == prefix or value.startswith(prefix + "."):
+        base = prefix.rstrip(".")
+        if value == base or value.startswith(base + "."):
             return prefix
     return None
 

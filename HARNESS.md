@@ -37,6 +37,14 @@
 ## 5. kit 版本与升级
 
 - 采用版本：**harness-kit 0.2.2（standard profile）**；镜像源与 kit 源保持同版本，不 fork 本地脚本。
+- kit 获取（独立仓 pinned，不 vendor）：
+  ```bash
+  git clone --depth 1 --branch v0.2.2 https://github.com/DavidTeam2008/harness-kit.git /tmp/harness-kit
+  python3 /tmp/harness-kit/scripts/harness-adopt --target . --report /tmp/adoption.md   # 只读盘点
+  python3 /tmp/harness-kit/scripts/harness-init --profile standard --target . \
+    --name "对译 Duiyi Android" --language android --test-command "./scripts/verify-unit.sh" --dry-run
+  ```
+  离线备选：从来源仓 `realtime-translator-ios` 的 `harness-kit/` 目录同源拷贝（该仓为 kit 上游维护源）。
 - 升级方式：以 kit 镜像 `v0.2.2+` 重新渲染/对比差异，只同步 `tools/` 与 harness 骨架；项目自己的规则（AGENTS/CONTRIBUTING/README/docs/references）不回写 kit。
 - 升级后必须重跑 `make check` / `make verify-static`；`harness/config.json` 是路径/命令/预算/claims 的唯一配置源。
 - 宿主本地扩展（升级时对照上游是否已修）：`tools/check_plan.py` 允许声明无扩展名根文件（`Makefile` 等，kit 0.2.2 缺口，v0.2.3 候选）；`tools/check_layers.py`、`tools/check_hygiene.py` 为宿主自有传感器，不随 kit 覆盖。
