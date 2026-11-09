@@ -151,48 +151,7 @@ verify:
 
 ## 未提交改动
 
-- AGENTS.md
-- CONTRIBUTING.md
-- HARNESS.md
-- README.md
-- docs/01-product-prototype.md
-- docs/01-product.md
-- docs/02-architecture.md
-- docs/03-decisions.md
-- docs/03-tech-choices.md
-- docs/04-implementation-principles.md
-- docs/04-runtime.md
-- docs/05-known-issues.md
-- docs/05-obstacles.md
-- docs/06-compromises.md
-- docs/06-roadmap.md
-- docs/07-on-device-llm.md
-- docs/07-roadmap.md
-- docs/08-latency.md
-- docs/08-on-device-llm.md
-- docs/09-current-state.md
-- docs/10-latency-optimization.md
-- docs/AGENTS.md
-- docs/README.md
-- docs/_archive/2026-09-design/01-product-prototype.md
-- docs/_archive/2026-09-design/02-architecture.md
-- docs/_archive/2026-09-design/03-tech-choices.md
-- docs/_archive/2026-09-design/04-implementation-principles.md
-- docs/_archive/2026-09-design/05-obstacles.md
-- docs/_archive/2026-09-design/06-compromises.md
-- docs/_archive/2026-09-design/07-roadmap.md
-- docs/_archive/2026-09-design/08-on-device-llm.md
-- docs/_archive/2026-11/09-current-state.md
-- docs/_archive/2026-11/10-latency-optimization.md
-- docs/_archive/README.md
-- docs/_archive/prototype/platform.html
-- harness/config.json
-- harness/plans/2026-11-10-android-adoption.md
-- references/contracts.md
-- references/verification.md
-- references/workflow.md
-- tools/check_hygiene.py
-- tools/check_layers.py
+- 无未提交改动（P2 文档蒸馏已提交）。
 
 ## 下一步
 
