@@ -59,5 +59,5 @@
 ## 5. 下一步
 
 - 方向与优先级见 [`06-roadmap.md`](06-roadmap.md)：延迟（最高）→ 诚实度（桩功能实现或从 UI 撤掉）→ 工程卫生。
-- 执行中的任务与验收以 active 计划与证据为准：[`../harness/plans/2026-11-10-android-adoption.md`](../harness/plans/2026-11-10-android-adoption.md)。
+- 进度以 `../harness/plans/` 的 active 计划与证据为准；最近一次 harness 改造计划（已完成）归档于 [`../harness/plans/_archive/2026-11-10-android-adoption.md`](../harness/plans/_archive/2026-11-10-android-adoption.md)。
 - 现状变化时更新本页与 05；数字（延迟/模型/测试计数）更新时必须带日期与设备口径。

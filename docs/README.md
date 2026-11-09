@@ -9,7 +9,7 @@
 | 你的目的 | 阅读顺序 |
 | --- | --- |
 | 第一次来 / 想跑起来 | [`../README.md`](../README.md) → [`../CONTRIBUTING.md`](../CONTRIBUTING.md) → [`09-current-state.md`](09-current-state.md) |
-| 接手 / 恢复任务 | [`../AGENTS.md`](../AGENTS.md) → active 计划 [`../harness/plans/2026-11-10-android-adoption.md`](../harness/plans/2026-11-10-android-adoption.md) → [`09-current-state.md`](09-current-state.md) |
+| 接手 / 恢复任务 | [`../AGENTS.md`](../AGENTS.md) → `../harness/plans/`（active）或最近归档计划 [`../harness/plans/_archive/2026-11-10-android-adoption.md`](../harness/plans/_archive/2026-11-10-android-adoption.md) → [`09-current-state.md`](09-current-state.md) |
 | 理解产品规则 | [`01-product.md`](01-product.md) |
 | 理解架构 / 改分层 | [`02-architecture.md`](02-architecture.md) → [`../references/contracts.md`](../references/contracts.md) |
 | 追问「为什么这样选」 | [`03-decisions.md`](03-decisions.md)（决策唯一表） |

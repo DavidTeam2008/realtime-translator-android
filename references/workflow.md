@@ -14,7 +14,7 @@
 
 - 计划放 `harness/plans/`，同一时间只有一个 active；front matter 必填 id/status/level/owner/updated/scope/acceptance/verify。
 - 「未提交改动」必须与 `git status` 一致，否则 `tools/check_plan.py check` 红；done 必须填 submitted 并归档；越界先改 scope。
-- 当前 active 计划见 [`../harness/plans/2026-11-10-android-adoption.md`](../harness/plans/2026-11-10-android-adoption.md)。
+- 当前计划：在 `../harness/plans/` 找 active；最近一次 harness 改造计划已归档为 [`../harness/plans/_archive/2026-11-10-android-adoption.md`](../harness/plans/_archive/2026-11-10-android-adoption.md)。
 
 ## 3. 证据纪律
 

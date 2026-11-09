@@ -31,7 +31,7 @@
 
 ## 4. 阅读路由（按任务读段落）
 
-- 接手：[`harness/plans/2026-11-10-android-adoption.md`](harness/plans/2026-11-10-android-adoption.md) → [`harness/README.md`](harness/README.md)。
+- 接手：[`harness/README.md`](harness/README.md) → `harness/plans/`（active）；最近归档计划 [`harness/plans/_archive/2026-11-10-android-adoption.md`](harness/plans/_archive/2026-11-10-android-adoption.md)。
 - 架构/现状/决策：[`docs/02-architecture.md`](docs/02-architecture.md)、[`docs/09-current-state.md`](docs/09-current-state.md)、[`docs/03-decisions.md`](docs/03-decisions.md)。
 - 规则 [`references/contracts.md`](references/contracts.md)；验证 [`references/verification.md`](references/verification.md)；分级/红队 [`references/workflow.md`](references/workflow.md)。
 - 文档 [`docs/README.md`](docs/README.md) / [`docs/AGENTS.md`](docs/AGENTS.md)；状态目录 [`harness/AGENTS.md`](harness/AGENTS.md)。

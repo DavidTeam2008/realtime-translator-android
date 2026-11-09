@@ -1,6 +1,6 @@
 # 06 路线图 · Android
 
-> 状态：当前规范（Now / Next / Later）。**进度权威 = active 计划 + 证据**，不是本页：当前计划见 [`../harness/plans/2026-11-10-android-adoption.md`](../harness/plans/2026-11-10-android-adoption.md)。
+> 状态：当前规范（Now / Next / Later）。**进度权威 = active 计划 + 证据**，不是本页：新任务用 `make plan` 起计划；最近一次改造计划已归档为 [`../harness/plans/_archive/2026-11-10-android-adoption.md`](../harness/plans/_archive/2026-11-10-android-adoption.md)。
 > 本页只维护方向与顺序：不写日期承诺、不做甘特、不写百分比；已完成条目写「已完成（日期）」，未验证条目写「未验证」。
 > 最后核对：2026-11-10。决策背景见 [`03-decisions.md`](03-decisions.md)，问题与桩清单见 [`05-known-issues.md`](05-known-issues.md)。
 
