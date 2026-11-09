@@ -39,6 +39,7 @@
 - 采用版本：**harness-kit 0.2.2（standard profile）**；镜像源与 kit 源保持同版本，不 fork 本地脚本。
 - 升级方式：以 kit 镜像 `v0.2.2+` 重新渲染/对比差异，只同步 `tools/` 与 harness 骨架；项目自己的规则（AGENTS/CONTRIBUTING/README/docs/references）不回写 kit。
 - 升级后必须重跑 `make check` / `make verify-static`；`harness/config.json` 是路径/命令/预算/claims 的唯一配置源。
+- 宿主本地扩展（升级时对照上游是否已修）：`tools/check_plan.py` 允许声明无扩展名根文件（`Makefile` 等，kit 0.2.2 缺口，v0.2.3 候选）；`tools/check_layers.py`、`tools/check_hygiene.py` 为宿主自有传感器，不随 kit 覆盖。
 
 ## 6. 当前门禁边界（不要过度声称）
 

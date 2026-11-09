@@ -160,23 +160,7 @@ verify:
 
 ## 未提交改动
 
-- CONTRIBUTING.md
-- HARNESS.md
-- Makefile
-- app/build.gradle.kts
-- app/detekt-baseline.xml
-- app/ktlint-baseline.xml
-- app/lint-baseline.xml
-- build.gradle.kts
-- config/detekt/detekt.yml
-- docs/05-known-issues.md
-- docs/06-roadmap.md
-- harness/config.json
-- harness/plans/2026-11-10-android-adoption.md
-- references/verification.md
-- scripts/evidence-unit.sh
-- scripts/gradlew-local.sh
-- tools/check_plan.py
+- 无未提交改动（P4 传感器与证据链代码已提交；tests-pass 证据在下一步生成并单独提交）。
 
 ## 下一步
 
