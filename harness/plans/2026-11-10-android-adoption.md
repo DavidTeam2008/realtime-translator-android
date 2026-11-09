@@ -155,28 +155,7 @@ verify:
 
 ## 未提交改动
 
-- .gitignore
-- CONTRIBUTING.md
-- app/src/debug/AndroidManifest.xml
-- app/src/debug/java/com/duiyi/android/debug/LatencyDebugActivity.kt
-- app/src/debug/java/com/duiyi/android/debug/TranslationSelfTestActivity.kt
-- app/src/main/AndroidManifest.xml
-- app/src/main/cpp/CMakeLists.txt
-- app/src/main/java/com/duiyi/android/domain/Copy.kt
-- app/src/main/java/com/duiyi/android/domain/ManagedAssets.kt
-- app/src/main/java/com/duiyi/android/domain/TranslationPolicy.kt
-- app/src/main/java/com/duiyi/android/features/interpretation/InterpretationViewModel.kt
-- app/src/main/java/com/duiyi/android/features/models/ModelsScreen.kt
-- app/src/test/java/com/duiyi/android/domain/ManagedAssetRulesTest.kt
-- docs/05-known-issues.md
-- docs/06-roadmap.md
-- docs/07-on-device-llm.md
-- docs/09-current-state.md
-- harness/config.json
-- harness/plans/2026-11-10-android-adoption.md
-- scripts/gradlew-local.sh
-- scripts/verify-unit.sh
-- third_party/llama.cpp
+- 无未提交改动（P3 清洁批次已提交）。
 
 ## 下一步
 
