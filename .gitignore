@@ -23,3 +23,8 @@ __pycache__/
 node_modules/
 .build/
 .swiftpm/
+
+# Kotlin/Java 诊断与缓存
+.kotlin/
+*.hprof
+captures/

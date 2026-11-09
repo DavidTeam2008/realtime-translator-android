@@ -45,7 +45,6 @@ class ManagedAssetRulesTest {
             bytes = 0,
             expectedBytes = 0,
             progress = 0f,
-            indeterminate = true,
         )
         val snapshot = DeviceAssetSnapshot(
             loaded = true,

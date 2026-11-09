@@ -24,9 +24,8 @@ scope:
     - build.gradle.kts
     - settings.gradle.kts
     - gradle.properties
-    - gradlew.local.sh
-    - third_party/
     - prototype/
+    - third_party/
   deny:
     - app/build/
     - app/.cxx/
@@ -73,7 +72,7 @@ verify:
 
 - [x] P1 接入 scaffold（2026-11-10）：kit 0.2.2 init standard `--language android`；修复 10 篇文档索引、跨仓断链、评估稿归档、config/baseline（unit floor=65）；`make check` / `make verify-static` PASS；scaffold 提交 `5179fdd`
 - [x] P2 文档蒸馏（2026-11-10）：当前 docs 重写（01/02/04/09 + README/AGENTS）；01–08/09/10 原文归档 `docs/_archive/`；新增 `docs/03-decisions.md`（D1–D15 唯一决策表）、`docs/05-known-issues.md`、`docs/06-roadmap.md`、`docs/07-on-device-llm.md`、`docs/08-latency.md`；根 `AGENTS.md`/`CONTRIBUTING.md`/`HARNESS.md`/`README.md` 与 `references/` 三篇重写；`make check` PASS（164 条链接/11 篇公开文档/预算内）
-- [ ] P3 清洁批次
+- [x] P3 清洁批次（2026-11-10）：死代码/调试入口/llama.cpp 链接/本机脚本/`.gitignore` 全部处理；`check_layers` + `check_hygiene` PASS；65 单测复跑 PASS；debug/release manifest 合并已核
 - [ ] P4 传感器与证据链
 - [ ] P5 验收（负向注入 + 冷启动首访 + 归档演练）
 
@@ -102,13 +101,13 @@ verify:
 
 ## 清洁清单
 
-- [ ] 删除死代码：`TranslationPolicy` 4 个节流常量、`InterpretationViewModel.debounceJobs`、`Copy.translationPackBody`、`AssetCard.indeterminate` 分支
-- [ ] debug Activity 隔离（debug source set 或 `exported=false`），release 包不留入口
-- [ ] `third_party/llama.cpp` 绝对符号链接改为固定 tag/相对方案，CONTRIBUTING 写复现步骤
-- [ ] `gradlew.local.sh` 迁入 `scripts/`，路径改环境变量/本地覆盖；`/local/`、`/local/` 出库
-- [ ] `prototype/platform.html` 归档到 `docs/_archive/prototype/`
-- [ ] `.gitignore` 补 `.kotlin/`、`*.hprof`、`captures/`、`test-results`
-- [ ] 桩代码决策清单（总结/音频策略/语言能力/下载）：实现、撤 UI 或标未验证
+- [x] 删除死代码：`TranslationPolicy` 4 个节流常量、`InterpretationViewModel.debounceJobs`、`Copy.translationPackBody`、`ManagedAssets.indeterminate` 及其 UI 分支（测试同步移除构造参数）；65 单测 PASS
+- [x] debug Activity 移入 `app/src/debug/`（debug manifest overlay）：`processDebugMainManifest` 合并含两个入口，`processReleaseMainManifest` 为 0
+- [x] `third_party/llama.cpp` 绝对符号链接删除：CMake 固定 tag `b10775` 走 `FetchContent`，本机可用 `LLAMA_CPP_SRC` 覆盖（不入库）
+- [x] `gradlew.local.sh` → `scripts/gradlew-local.sh`：JDK/SDK 从环境/`local.properties` 读取，不再含机器路径；`scripts/verify-unit.sh` 同步
+- [x] `prototype/platform.html` 已归档 `docs/_archive/prototype/`
+- [x] `.gitignore` 补 `.kotlin/`、`*.hprof`、`captures/`
+- [x] 桩代码决策清单已写入 `docs/05-known-issues.md`（实现/撤 UI/标未验证三选一，未在本轮实现）
 
 ## 传感器接线
 
@@ -141,20 +140,46 @@ verify:
 | `make verify-static`（P1 接入后） | PASS（exit 0） | 同上 | —（过程记录：P1） |
 | `./scripts/verify-unit.sh`（P1 复跑） | PASS（BUILD SUCCESSFUL；JUnit 65 用例基线） | 本机 JDK 17 / Gradle 8.10.2 | —（过程记录：P1；P4 前未生成证据 JSON） |
 | `make check`（P2 文档蒸馏后） | PASS（exit 0；相对链接 164 条全部存在、围栏成对、docs 索引 18 个目标、公开文档 11/16、4 个指令文件预算内、敏感串 0） | Android 仓工作树；python3 标准库 | —（过程记录：P2） |
+| `python3 tools/check_layers.py`（P3 后） | PASS（72 个 Kotlin 文件，0 分层违规；R1–R6） | 本机 python3 3.14 | —（过程记录：P3） |
+| `python3 tools/check_hygiene.py`（P3 后） | PASS（155 个跟踪文件，0 违规：无绝对符号链接/本机路径/构建产物） | 同上 | —（过程记录：P3） |
+| `:app:processDebugMainManifest` + `:app:processReleaseMainManifest` | PASS：debug 合并含 2 个 debug 入口，release 0；BUILD SUCCESSFUL 15s | JDK 17 / Gradle 8.10.2 | —（过程记录：P3） |
+| `./scripts/verify-unit.sh`（P3 死代码/入口清理后） | PASS：BUILD SUCCESSFUL 27s；JUnit 65 | JDK 17 / Gradle 8.10.2 | —（过程记录：P3；P4 生成证据 JSON） |
 
 ## 未验证项
 
-- P1 单测为接入前实测基线（65 用例）；接入后仅复跑到 UP-TO-DATE，P4 取证时需 `--rerun-tasks` 重跑。
+- 单测已在 P3 清理后复跑 PASS（65）；P4 取证时需 `--rerun-tasks` 生成 JUnit XML 证据。
+- release APK 未重新构建（native 依赖需下载 llama.cpp 源码）；已用 manifest 合并任务验证 debug/release 差异。
 - 真机（荣耀 ALP-AN00）未复跑；P3 清洁后需真机手测清单。
 - Android Lint/detekt 首次噪音未知；P4 用 baseline 起步。
 - 蒸馏后的历史数字（延迟/模型结构/自检）来自归档，本轮未复测；真机未复跑（P3 后手测）。
 
 ## 未提交改动
 
-- 无未提交改动（P2 文档蒸馏已提交）。
+- .gitignore
+- CONTRIBUTING.md
+- app/src/debug/AndroidManifest.xml
+- app/src/debug/java/com/duiyi/android/debug/LatencyDebugActivity.kt
+- app/src/debug/java/com/duiyi/android/debug/TranslationSelfTestActivity.kt
+- app/src/main/AndroidManifest.xml
+- app/src/main/cpp/CMakeLists.txt
+- app/src/main/java/com/duiyi/android/domain/Copy.kt
+- app/src/main/java/com/duiyi/android/domain/ManagedAssets.kt
+- app/src/main/java/com/duiyi/android/domain/TranslationPolicy.kt
+- app/src/main/java/com/duiyi/android/features/interpretation/InterpretationViewModel.kt
+- app/src/main/java/com/duiyi/android/features/models/ModelsScreen.kt
+- app/src/test/java/com/duiyi/android/domain/ManagedAssetRulesTest.kt
+- docs/05-known-issues.md
+- docs/06-roadmap.md
+- docs/07-on-device-llm.md
+- docs/09-current-state.md
+- harness/config.json
+- harness/plans/2026-11-10-android-adoption.md
+- scripts/gradlew-local.sh
+- scripts/verify-unit.sh
+- third_party/llama.cpp
 
 ## 下一步
 
-1. 提交 P2（本计划 dirty 声明与本文件一致；提交后把本行改回「无未提交改动」）。
-2. P3 清洁批次：死代码 → debug 入口 → llama.cpp 符号链接 → `gradlew.local.sh` 迁 `scripts/` → `.gitignore`；每项单独 commit，保持 65 单测全绿。
-3. P4 传感器与证据链（`check-host` 已备脚本：`tools/check_layers.py` PASS、`tools/check_hygiene.py` 待 P3 清零）。
+1. 提交 P3（本计划 dirty 声明与本文件一致；提交后把本行改回「无未提交改动」）。
+2. P4 传感器与证据链：Makefile `check-host` 接入 `check_layers`/`check_hygiene`；detekt + ktlint + Android Lint（baseline 起步）；JUnit XML → `tools/evidence_from_junit.py` → `tools/evidence.py` → `make verify-claim`；pre-push 改为 `make verify-static && make check-host`；CI 增加宿主静态步骤。
+3. P5 验收：负向注入（删 docs 行/越层 import/跟踪产物/删测试/脏树证据）→ 全红→恢复绿；冷启动首访；计划 done/归档演练。

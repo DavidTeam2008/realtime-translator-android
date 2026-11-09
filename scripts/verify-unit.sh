@@ -4,7 +4,7 @@
 # 证据链：tools/evidence_from_junit.py + tools/evidence.py write --from-json（见 harness/README.md）。
 set -eu
 cd "$(dirname "$0")/.."
-if [ -x ./gradlew.local.sh ]; then
-  exec ./gradlew.local.sh testDebugUnitTest "$@"
+if [ -x scripts/gradlew-local.sh ]; then
+  exec scripts/gradlew-local.sh testDebugUnitTest "$@"
 fi
 exec ./gradlew testDebugUnitTest "$@"

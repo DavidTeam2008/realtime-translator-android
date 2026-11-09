@@ -1,10 +1,6 @@
 package com.duiyi.android.domain
 
 object TranslationPolicy {
-    const val FIRST_TRANSLATION_MS = 280L
-    const val TRANSLATION_MS = 450L
-    const val VOICE_FIRST_MS = 200L
-    const val VOICE_NEXT_MS = 350L
     const val PERSIST_MS = 250L
     const val IDLE_RESTORE_MS = 30_000L
     const val SPEECH_QUEUE_LIMIT = 2

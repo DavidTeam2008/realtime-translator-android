@@ -26,7 +26,6 @@ data class ManagedAsset(
     val bytes: Long,
     val expectedBytes: Long,
     val progress: Float,
-    val indeterminate: Boolean = false,
     val files: List<ManagedAssetFile> = emptyList(),
 ) {
     val canDownload: Boolean

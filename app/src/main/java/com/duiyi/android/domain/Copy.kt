@@ -145,7 +145,6 @@ object Copy {
     fun deleteAsset(language: AppLanguage) = language.pick("删除", "Delete", "削除", "삭제", "ลบ", "Xóa")
     fun downloadMissing(language: AppLanguage) = language.pick("下载缺少的", "Download missing", "不足分をダウンロード", "없는 항목 받기", "ดาวน์โหลดที่ยังไม่มี", "Tải phần còn thiếu")
     fun confirmDeleteAsset(language: AppLanguage) = language.pick("删除后需重新下载才能离线使用。", "You will need to download it again to use it offline.", "削除すると、オフライン利用には再ダウンロードが必要です。", "삭제하면 오프라인으로 쓰려면 다시 받아야 합니다.", "ลบแล้วต้องดาวน์โหลดใหม่ถึงใช้ออฟไลน์ได้", "Xóa xong phải tải lại mới dùng ngoại tuyến được.")
-    fun translationPackBody(pack: AppLanguage, ui: AppLanguage) = translationModelBody(ui)
     fun speechPartTitle(fileName: String, language: AppLanguage): String = when {
         fileName.contains("model") && fileName.endsWith(".onnx") ->
             language.pick("听写模型", "Speech model", "音声モデル", "음성 모델", "โมเดลถอดเสียง", "Mô hình nghe")

@@ -23,7 +23,7 @@
 | 模型 | Google **TranslateGemma 4B Instruct**，GGUF `Q4_K_M` |
 | 权重 | `GemmaModelSpec`：`translategemma-4b-it.Q4_K_M.gguf`，`EXPECTED_BYTES = 2_489_909_760`（约 2.49 GB），`MIN_BYTES = 2_000_000_000` |
 | 来源 | `mradermacher/translategemma-4b-it-GGUF`；镜像 `hf-mirror.com` 优先、`huggingface.co` 兜底 |
-| 运行时 | llama.cpp tag `b10775` + ggml CPU；`CMakeLists.txt` 优先用 `third_party/llama.cpp`，缺失时 `FetchContent` 拉同 tag |
+| 运行时 | llama.cpp tag `b10775` + ggml CPU；`CMakeLists.txt` 固定 tag 走 `FetchContent`，本机可通过环境变量 `LLAMA_CPP_SRC` 使用本地源码覆盖（不入库） |
 | 推理设备 | **全 CPU**：`n_gpu_layers = 0`，关 OpenCL / Hexagon / OpenMP，`flash_attn_type` 关闭、`offload_kqv = false` |
 | 封装 | `app/src/main/cpp/llama_jni.cpp` → `libduiyi_llama.so`；Kotlin 侧 `LlamaNative`（JNI 声明）与 `GemmaTranslator`（Hilt 单例） |
 | 线程 | `Threads = availableProcessors().coerceIn(2, 4)`，在 `pin_to_big_cores` 之后创建上下文 |
@@ -132,7 +132,7 @@ i8mm vs dotprod A/B（归档 §5.2；Honor ALP-AN00，两次构建各跑 3 轮�
 
 - **只在 Honor ALP-AN00 上测过**：其他 SoC（尤其大小核布局不同、无 dotprod、或小核不支持 I8MM 的设备）的线程绑核与内核选择未验证。
 - **prefill 命中/预热收益是历史记录**：`prefix_ms=15`、prefill `373 ms` 等来自 2026-09 自检；2026-11 未复测。`TranslationPump` 的投机 prefill 有代码但**尚未有真机收益数据**。
-- **模型版本可复现性**：`third_party/llama.cpp` 当前是绝对符号链接，换机可能静默走 `FetchContent`（同 tag 但来源不同）；该问题列入 P3 清洁（见 [`06-roadmap.md`](06-roadmap.md) 与 [`09-current-state.md`](09-current-state.md) D-6）。
+- **模型版本可复现性**：已删除入库的绝对符号链接（P3，2026-11-10）；现在固定 tag `b10775` 由 `FetchContent` 拉取，本机可用 `LLAMA_CPP_SRC` 覆盖。换机 / CI 得到同一源码版本；本地覆盖路径不入库。
 - **权重就绪判定偏宽**：`MIN_BYTES` 2.0 GB < `EXPECTED_BYTES` 2.49 GB，截断文件可能被当作就绪（同类问题 D-3）。
 - **抢核与 ComputeGate 的取舍**：生成期默认跳过 partial 解码，换 Gemma 不被抢核，代价是另一侧「正在说…」实时原文短暂停更；该假设**未经真机 A/B 测量**（见 [`08-latency.md`](08-latency.md)）。
 - **会议模块不会常驻模型**：`MeetingViewModel` 进入/开始听写时 `translator.release()`，回面对面需重新 `prepare`（可能再付一次加载时间）；这是「把大核还给听写」的取舍，UI 尚未显式提示。

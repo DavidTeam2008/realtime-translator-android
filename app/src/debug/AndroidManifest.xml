@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Debug-only entry points: not merged into release builds. -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application>
+        <activity
+            android:name=".debug.TranslationSelfTestActivity"
+            android:exported="true"
+            android:label="Duiyi Translate Self Test"
+            android:theme="@style/Theme.Duiyi" />
+        <activity
+            android:name=".debug.LatencyDebugActivity"
+            android:exported="true"
+            android:label="Duiyi Latency"
+            android:theme="@style/Theme.Duiyi" />
+    </application>
+</manifest>

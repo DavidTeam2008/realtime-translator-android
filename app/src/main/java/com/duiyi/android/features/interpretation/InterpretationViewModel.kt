@@ -108,7 +108,6 @@ class InterpretationViewModel @Inject constructor(
     val state: StateFlow<InterpretationUiState> = _state.asStateFlow()
 
     private var speechJob: Job? = null
-    private val debounceJobs = mutableMapOf<UUID, Job>()
     private var persistJob: Job? = null
     private var idleJob: Job? = null
     private var routeJob: Job? = null
@@ -536,7 +535,6 @@ class InterpretationViewModel @Inject constructor(
             generation = ++translationGeneration,
             previousSource = previous,
         )
-        debounceJobs.remove(line.id)?.cancel()
         sentSourceText[line.id] = text
         translationPump.submit(job)
     }
@@ -733,8 +731,6 @@ class InterpretationViewModel @Inject constructor(
         stablePrefix.reset()
         spokenPrefixes.clear()
         speakQueue.clear()
-        debounceJobs.values.forEach { it.cancel() }
-        debounceJobs.clear()
         speaking = false
         viewModelScope.launch { synthesizer.stopAndClear() }
         _state.update { it.copy(pane = PaneState.Empty, summary = null, summaryMessage = null, speakingOut = false) }

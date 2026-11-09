@@ -37,22 +37,27 @@ set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
 #
 # The switch is kept because it makes that a one-flag, reproducible A/B:
 #   ./gradlew assembleDebug -PduiyiArmArch=armv8.6-a+dotprod+i8mm
-# See docs/10-latency-optimization.md section 5.2 for the numbers.
+# See docs/08-latency.md for the numbers.
 if(NOT GGML_CPU_ARM_ARCH)
     set(GGML_CPU_ARM_ARCH "armv8.2-a+dotprod" CACHE STRING "" FORCE)
 endif()
 message(STATUS "Duiyi ARM arch: ${GGML_CPU_ARM_ARCH}")
 
-set(LLAMA_SRC "${CMAKE_CURRENT_SOURCE_DIR}/../../../../third_party/llama.cpp")
-if(EXISTS "${LLAMA_SRC}/CMakeLists.txt")
+# llama.cpp is not vendored: pin an upstream tag so every machine builds the same
+# source, and allow a local checkout override for offline development:
+#   export LLAMA_CPP_SRC=/path/to/llama.cpp
+set(LLAMA_CPP_TAG "b10775")
+set(LLAMA_SRC "$ENV{LLAMA_CPP_SRC}")
+if(LLAMA_SRC AND EXISTS "${LLAMA_SRC}/CMakeLists.txt")
+    message(STATUS "llama.cpp from local override: ${LLAMA_SRC}")
     add_subdirectory(${LLAMA_SRC} llama.cpp)
 else()
     include(FetchContent)
     FetchContent_Declare(
         llama
         URL
-            https://github.com/ggml-org/llama.cpp/archive/refs/tags/b10775.tar.gz
-            https://mirror.ghproxy.com/https://github.com/ggml-org/llama.cpp/archive/refs/tags/b10775.tar.gz
+            https://github.com/ggml-org/llama.cpp/archive/refs/tags/${LLAMA_CPP_TAG}.tar.gz
+            https://mirror.ghproxy.com/https://github.com/ggml-org/llama.cpp/archive/refs/tags/${LLAMA_CPP_TAG}.tar.gz
     )
     FetchContent_MakeAvailable(llama)
 endif()

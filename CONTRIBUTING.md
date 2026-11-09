@@ -23,7 +23,7 @@
 | `What went wrong: 25.0.2`（只有版本号） | Kotlin 2.0.21 的 `JavaVersion.parse` 解析不了 25 | Gradle 守护进程换 **JDK 17–21** |
 | AS 提示升级 Gradle | 升级会落回上一条 | **不要接受**，除非同时升级 AGP/Kotlin |
 
-命令行可用仓库根 `gradlew.local.sh`：它会自动挑 JDK 17–21 再调 wrapper。AS 中设置 `Settings → Build Tools → Gradle → Gradle JDK` 为 17/21。
+命令行可用 `scripts/gradlew-local.sh`：它会从 `JAVA_HOME` / `~/.gradle/jdks` / 系统 JDK 里挑 17–21 再调 wrapper（仓库不保存机器路径）。AS 中设置 `Settings → Build Tools → Gradle → Gradle JDK` 为 17/21。
 
 ## 3. 首次构建
 
@@ -33,7 +33,7 @@
 # 2) 构建 debug
 ./gradlew assembleDebug
 # 3) 如命令行的默认 JDK 是 25，用仓库脚本挑 17–21
-./gradlew.local.sh assembleDebug
+./scripts/gradlew-local.sh assembleDebug
 ```
 
 ## 4. 单测（JVM，无需真机）
@@ -67,7 +67,7 @@ adb shell am start -n com.duiyi.android/.debug.TranslationSelfTestActivity
 ## 6. 模型权重与 NDK
 
 - 权重由首次引导下载，镜像与文件名在 `services/speech/SherpaModelSpec.kt`、`services/translation/GemmaModelSpec.kt`。
-- `third_party/llama.cpp` 期望固定在 tag `b10775`；若本机用绝对符号链接，先改成固定 tag 或相对方案再构建，保证换机器可复现。
+- llama.cpp 固定 tag `b10775`，由 CMake `FetchContent` 拉取；本机如需用本地源码，`export LLAMA_CPP_SRC=/path/to/llama.cpp`（该路径不入库），不要提交符号链接。
 - CMake 参数见 `app/build.gradle.kts`（`GGML_NATIVE=OFF`、`armv8.2-a+dotprod` 默认；`-PduiyiArmArch=` 可切 8×8 repack 对比）。
 
 ## 7. 证据流程（P4 后启用）

@@ -47,7 +47,7 @@
 
 | 项 | 状态 | 说明 |
 | --- | --- | --- |
-| JVM 单元测试 | ✅ 基线 65 个（P1 记录 0 失败 0 跳过；**本批文档未复跑**） | `./scripts/verify-unit.sh`；基线写入 `harness/test-baseline.json`（unit.floor=65），改动后须保持只增不减 |
+| JVM 单元测试 | ✅ 65 个，0 失败 0 跳过（P3 清洁后复跑 PASS，2026-11-10） | `./scripts/verify-unit.sh`；基线写入 `harness/test-baseline.json`（unit.floor=65），改动后须保持只增不减 |
 | 真机手工验证 | ⚠️ 仅荣耀 ALP-AN00（型号） | 面对面主路径、同传、会议、历史、导出在开发真机手测过；非荣耀机型未验证 |
 | 延迟数字 | 📎 见 08 | 端到端/首字/生成等数字与日期在 [`08-latency.md`](08-latency.md) |
 | 端侧 LLM 数字 | 📎 见 07 | 加载、前缀预热、生成数字与设备口径在 [`07-on-device-llm.md`](07-on-device-llm.md) |

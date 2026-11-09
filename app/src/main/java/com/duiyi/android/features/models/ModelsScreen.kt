@@ -200,22 +200,14 @@ private fun AssetCard(
         }
         if (asset.status == ManagedAssetStatus.Downloading) {
             Spacer(Modifier.height(10.dp))
-            if (asset.indeterminate) {
-                LinearProgressIndicator(
-                    modifier = Modifier.fillMaxWidth(),
-                    color = Tokens.listen,
-                    trackColor = Tokens.sheetChip,
-                )
-            } else {
-                LinearProgressIndicator(
-                    progress = { asset.progress },
-                    modifier = Modifier.fillMaxWidth(),
-                    color = Tokens.listen,
-                    trackColor = Tokens.sheetChip,
-                )
-                Spacer(Modifier.height(6.dp))
-                Text(Copy.percent(asset.progress, language), color = Tokens.listen, fontSize = 13.sp)
-            }
+            LinearProgressIndicator(
+                progress = { asset.progress },
+                modifier = Modifier.fillMaxWidth(),
+                color = Tokens.listen,
+                trackColor = Tokens.sheetChip,
+            )
+            Spacer(Modifier.height(6.dp))
+            Text(Copy.percent(asset.progress, language), color = Tokens.listen, fontSize = 13.sp)
         } else if (asset.status == ManagedAssetStatus.Partial) {
             Spacer(Modifier.height(10.dp))
             LinearProgressIndicator(

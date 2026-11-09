@@ -175,8 +175,7 @@
       "settings.gradle.kts",
       "gradle.properties",
       "gradlew",
-      "gradlew.bat",
-      "gradlew.local.sh"
+      "gradlew.bat"
     ],
     "localPathPatterns": [
       "/local/",
