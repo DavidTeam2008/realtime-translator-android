@@ -20,7 +20,7 @@
 
 | 分项 | 现状 | 状态 |
 | --- | --- | --- |
-| `app/.cxx/` 编译中间产物入库 | 已停止跟踪（提交 `1c3bcce`，早于本次改造） | 已修 |
+| `app/.cxx/` 编译中间产物入库 | 已停止跟踪（提交 `7b27087`，早于本次改造） | 已修 |
 | `prototype/platform.html` 留在根目录 | 已归档到 `_archive/prototype/`（P1，2026-11-10） | 已修 |
 | `third_party/llama.cpp` 是绝对路径符号链接 | 已删除入库的绝对符号链接；`CMakeLists.txt` 固定 tag `b10775` 走 `FetchContent`，本机可用 `LLAMA_CPP_SRC` 指向本地源码（不入库） | 已修（P3，2026-11-10） |
 | debug Activity 留在 release 包且 `exported=true` | 两个调试入口已移入 `app/src/debug/`（debug manifest overlay），release 变体不合并；`adb ... .debug.*` 仅对 debug 包有效 | 已修（P3，2026-11-10） |

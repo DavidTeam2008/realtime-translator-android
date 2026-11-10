@@ -1,7 +1,7 @@
 # harness-kit 接入评估 · 对译 Duiyi Android
 
 > 状态：**评估稿（未执行）**；本文件未纳入 Git，确认后可转为 `harness/plans/` 正式计划或直接删除。
-> 评估对象：`~/Documents/code/ios/realtimeTranslatorMultiple/realtimeTranslatorAndroid`（remote `DavidTeam2008/realtime-translator-android`，main `2ff1fae`）
+> 评估对象：`~/Documents/code/ios/realtimeTranslatorMultiple/realtimeTranslatorAndroid`（remote `DavidTeam2008/realtime-translator-android`，main `d313fdf`）
 > 评估基准：仓库只读盘点（2026-11-09）+ 单测基线实跑 + `harness-kit` 0.2.1 契约（`VERSION`/`SPEC.md`/`profiles/*.json`/`docs/playbook.md`）
 > 补充（2026-11-09 晚）：决策前问答见 §0.1；kit v0.2.2/v0.3.0 泛化提案见附录 C。
 > 本次评估未改动任何跟踪文件；唯一副作用是跑了一次 `./gradlew.local.sh testDebugUnitTest`（产物写 `app/build/`，已被忽略）。
@@ -40,7 +40,7 @@
 
 | 项 | 实测值 | 取证 |
 | --- | --- | --- |
-| 跟踪文件 | 115 个；3 个 commit（`440294c` 初始 / `1c3bcce` 卫生 / `2ff1fae` 延迟） | `git ls-files \| wc -l`、`git log` |
+| 跟踪文件 | 115 个；3 个 commit（`88417e5` 初始 / `7b27087` 卫生 / `d313fdf` 延迟） | `git ls-files \| wc -l`、`git log` |
 | 源码 | 86 个源文件（Kotlin + 1 个 `llama_jni.cpp`），Kotlin **10,815 行** | `find app/src -name '*.kt' \| xargs wc -l` |
 | 单测 | 13 个测试文件 / 16 个测试类 / **65 个用例，0 失败 0 跳过，49s 通过** | 2026-11-09 实跑 `./gradlew.local.sh testDebugUnitTest` + JUnit XML 统计 |
 | 测试面 | 仅 JVM 单测；**无 `app/src/androidTest`**（无 instrumented/UI 测试）、无延迟自动化 | `find app/src -maxdepth 2` |
@@ -57,7 +57,7 @@
 3. **过期内容 61 处**：`docs/02–08` 仍大量写 **ML Kit / 系统 `SpeechRecognizer` / Gemini Nano**，而代码实际是 **sherpa-onnx SenseVoice + llama.cpp TranslateGemma**（`grep -c` 统计 61 行）。
 4. **"过期后人工打补丁"的物证**：`docs/02/03/04` 顶部都加了"⚠️ 本文写于实现之前……以 `09-current-state.md` 为准"的横幅；`docs/09` 开头声明"本文是代码的实况"，并列出 9 行"与原设计的偏差"表。**这恰恰说明机制缺位**：文档不是没写，是写完没人能保证它跟着代码走。
 5. **"当前状态"文档自己也已漂移**：
-   - `docs/09` §6 D-6 写"`app/.cxx/`（395 个中间产物）**被提交进了 git**"，但当前 3 个 commit 的历史中 `.cxx` **从未被跟踪**（`git ls-tree -r 440294c | grep -c cxx` = 0，无删除提交）；`1c3bcce` 提交信息称"从索引移除"，实际 diff **只改了 `.gitignore`**。过程记录与 Git 历史不一致。
+   - `docs/09` §6 D-6 写"`app/.cxx/`（395 个中间产物）**被提交进了 git**"，但当前 3 个 commit 的历史中 `.cxx` **从未被跟踪**（`git ls-tree -r 88417e5 | grep -c cxx` = 0，无删除提交）；`7b27087` 提交信息称"从索引移除"，实际 diff **只改了 `.gitignore`**。过程记录与 Git 历史不一致。
    - `docs/09` 说 D-1 "已修（待真机验证）"，README 第 116 行说"尚未编译与真机验证"——两处口径不一致。
 6. **同一状态在三处重复**：README「当前状态」、`docs/09` §5/§6、`docs/10` §9 实施状态表，各写一遍进度，天然漂移。
 7. **本机路径入库**：`/local/...` 出现在 `README.md`、`docs/09-current-state.md`、`gradlew.local.sh` 三个跟踪文件里。
@@ -315,7 +315,7 @@ realtimeTranslatorAndroid/
 | 问题 | 接入后的状态 | 说明 |
 | --- | --- | --- |
 | 环境不可复现（绝对符号链接、`/local/` 路径、本机 JDK shim） | **新增强制拦截**；存量需 Phase 3 清理 | `sensitivePatterns` + hygiene + CONTRIBUTING 复现步骤；llama.cpp 固定 tag/hash |
-| 过程记录与 Git 历史不一致（`1c3bcce` 声称移除 .cxx 但只改 .gitignore） | **可被"证据/计划必须与提交对应"约束**，但无法自动回查历史谎报 | 以后所有"已完成"必须带 evidence id + commit；写计划时用 `git show` 复核 |
+| 过程记录与 Git 历史不一致（`7b27087` 声称移除 .cxx 但只改 .gitignore） | **可被"证据/计划必须与提交对应"约束**，但无法自动回查历史谎报 | 以后所有"已完成"必须带 evidence id + commit；写计划时用 `git show` 复核 |
 | 桩功能被当完成（总结/音频/语言能力） | **三值证据会把它变成显式 UNVERIFIED**；不能自动补实现 | 计划里列"实现/撤 UI/保留但标未验证"三选一 |
 | 测试面窄（无 UI/instrumented、延迟手工） | **部分**：kit 只做静态；单测证据+基线可防删测试，真机仍需人工 | `references/verification.md` 写清"哪些必须真机、怎么记 UNVERIFIED" |
 | 无 CI / 无静态分析 | **静态 CI 一条命令搞定**；unit CI 受 native 构建约束 | 首版 CI 只接静态；unit 证据本地生成（kit 设计如此） |
@@ -408,8 +408,8 @@ git -C realtimeTranslatorAndroid status --porcelain        # 空（跟踪文件�
 git ls-files | wc -l                                        # 115
 git log --oneline                                           # 3 commits
 git ls-files -s third_party/llama.cpp                       # 120000 ... 0  third_party/llama.cpp
-git ls-tree -r 440294c --name-only | grep -c cxx            # 0（初版无 .cxx）
-git show 1c3bcce --stat                                     # 仅 .gitignore，1 file changed
+git ls-tree -r 88417e5 --name-only | grep -c cxx            # 0（初版无 .cxx）
+git show 7b27087 --stat                                     # 仅 .gitignore，1 file changed
 
 # 单测基线（2026-11-09）
 ./gradlew.local.sh testDebugUnitTest --console=plain        # BUILD SUCCESSFUL in 49s, exit 0

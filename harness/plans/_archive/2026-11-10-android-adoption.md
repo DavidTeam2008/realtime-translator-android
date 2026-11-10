@@ -1,7 +1,7 @@
 ---
 id: 2026-11-10-android-adoption
 status: done
-submitted: 294a9f9
+submitted: 2c3b479
 level: L2
 owner: david
 updated: 2026-11-10
@@ -72,7 +72,7 @@ verify:
 
 ## 进度
 
-- [x] P1 接入 scaffold（2026-11-10）：kit 0.2.2 init standard `--language android`；修复 10 篇文档索引、跨仓断链、评估稿归档、config/baseline（unit floor=65）；`make check` / `make verify-static` PASS；scaffold 提交 `5179fdd`
+- [x] P1 接入 scaffold（2026-11-10）：kit 0.2.2 init standard `--language android`；修复 10 篇文档索引、跨仓断链、评估稿归档、config/baseline（unit floor=65）；`make check` / `make verify-static` PASS；scaffold 提交 `4b42896`
 - [x] P2 文档蒸馏（2026-11-10）：当前 docs 重写（01/02/04/09 + README/AGENTS）；01–08/09/10 原文归档 `docs/_archive/`；新增 `docs/03-decisions.md`（D1–D15 唯一决策表）、`docs/05-known-issues.md`、`docs/06-roadmap.md`、`docs/07-on-device-llm.md`、`docs/08-latency.md`；根 `AGENTS.md`/`CONTRIBUTING.md`/`HARNESS.md`/`README.md` 与 `references/` 三篇重写；`make check` PASS（164 条链接/11 篇公开文档/预算内）
 - [x] P3 清洁批次（2026-11-10）：死代码/调试入口/llama.cpp 链接/本机脚本/`.gitignore` 全部处理；`check_layers` + `check_hygiene` PASS；65 单测复跑 PASS；debug/release manifest 合并已核
 - [x] P4 传感器与证据链（2026-11-10）：`check-host` 并入 `verify-static`；detekt + ktlint + Android Lint 接入 `check-quality`（三份 baseline 起步，0 失败）；`make evidence-test` 生成 `20261109T163805Z-tests-pass`（65/65），`verify-claim` PASS；文档同步
@@ -159,14 +159,14 @@ verify:
 
 ## done / 归档演练（P5，2026-11-10）
 
-1. 本计划置 `status: done` + `submitted: 294a9f9`（`tests-pass` 证据的 commit），`check_plan.py check` PASS（done 证据绑定校验生效）。
+1. 本计划置 `status: done` + `submitted: 2c3b479`（`tests-pass` 证据的 commit），`check_plan.py check` PASS（done 证据绑定校验生效）。
 2. 提交后移入 `harness/plans/_archive/`，并更新所有指向本计划的相对链接；`make check` 在「无 active 计划」状态下 PASS。
 
 ## 验证证据
 
 | 命令 | 结果 | 环境 | 证据ID |
 | --- | --- | --- | --- |
-| `make check`（P1 接入后） | PASS（exit 0） | Android 仓 `5179fdd` 工作树；python3 标准库 | —（过程记录：P1） |
+| `make check`（P1 接入后） | PASS（exit 0） | Android 仓 `4b42896` 工作树；python3 标准库 | —（过程记录：P1） |
 | `make verify-static`（P1 接入后） | PASS（exit 0） | 同上 | —（过程记录：P1） |
 | `./scripts/verify-unit.sh`（P1 复跑） | PASS（BUILD SUCCESSFUL；JUnit 65 用例基线） | 本机 JDK 17 / Gradle 8.10.2 | —（过程记录：P1；P4 前未生成证据 JSON） |
 | `make check`（P2 文档蒸馏后） | PASS（exit 0；相对链接 164 条全部存在、围栏成对、docs 索引 18 个目标、公开文档 11/16、4 个指令文件预算内、敏感串 0） | Android 仓工作树；python3 标准库 | —（过程记录：P2） |
@@ -176,7 +176,7 @@ verify:
 | `./scripts/verify-unit.sh`（P3 死代码/入口清理后） | PASS：BUILD SUCCESSFUL 27s；JUnit 65 | JDK 17 / Gradle 8.10.2 | —（过程记录：P3；P4 生成证据 JSON） |
 | `make check-host`（P4） | PASS：分层 72 文件 0 违规；卫生 155 跟踪文件 0 违规 | 本机 python3 3.14 / git | —（过程记录：P4） |
 | `make check-quality`（P4） | PASS：detekt + ktlintCheck + lintDebug；三份 baseline 生成，0 失败 | JDK 17.0.13 / Gradle 8.10.2 / AGP 8.7.2 | —（过程记录：P4） |
-| `make evidence-test`（2026-11-10，clean tree @ `294a9f9`） | **PASS**：`./scripts/verify-unit.sh --rerun-tasks` 11s → 65 passed / 0 failed / 0 skipped → `evidence.py` 写入证据；`make verify-claim` → PASS | JDK 17.0.13 / Gradle 8.10.2 / AGP 8.7.2；JVM unit | `20261109T163805Z-tests-pass` |
+| `make evidence-test`（2026-11-10，clean tree @ `2c3b479`） | **PASS**：`./scripts/verify-unit.sh --rerun-tasks` 11s → 65 passed / 0 failed / 0 skipped → `evidence.py` 写入证据；`make verify-claim` → PASS | JDK 17.0.13 / Gradle 8.10.2 / AGP 8.7.2；JVM unit | `20261109T163805Z-tests-pass` |
 | 负向注入 12 项（P5） | **PASS**：12/12 命中门禁（1→docs/agents/plan/evidence，2→dry-tree；详表见上），恢复后全部 0；修复 check_layers 前缀 bug、check_hygiene 误报 | 本机 python3 3.14 / git | —（过程记录：P5 负向注入） |
 | 冷启动首访（P5） | **PASS**：陌生代理 5/5 可答；Top 3 卡点（状态滞后/kit 命令不在阅读链/三值语义冲突）已修复 | 只读仓库；agent 走查 | —（过程记录：P5 冷启动） |
 
