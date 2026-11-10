@@ -40,12 +40,13 @@
 - 采用版本：**harness-kit 0.2.3（standard profile）**；镜像源与 kit 源保持同版本，不 fork 本地脚本。
 - kit 获取（独立仓 pinned，不 vendor）：
   ```bash
-  git clone --depth 1 --branch v0.2.3 https://github.com/DavidTeam2008/harness-kit.git /tmp/harness-kit
+  git clone --depth 1 --branch v0.2.3 https://github.com/DavidTeam2008/harness-engineering-kit.git /tmp/harness-kit
   python3 /tmp/harness-kit/scripts/harness-adopt --target . --report /tmp/adoption.md   # 只读盘点
   python3 /tmp/harness-kit/scripts/harness-init --profile standard --target . \
     --name "对译 Duiyi Android" --language android --test-command "./scripts/verify-unit.sh" --dry-run
   ```
   离线备选：从来源仓 `realtime-translator-ios` 的 `harness-kit/` 目录同源拷贝（该仓为 kit 上游维护源）。
+- 2026-11-10 仓库改名：原 `harness-kit` → `harness-engineering-kit`（旧 URL 301 重定向）；目录、命令与 tag 前缀沿用短名 `harness-kit`。
 - 升级方式（2026-11-10 已实测 v0.2.2→v0.2.3）：kit 没有 in-place 升级命令，对已接入仓跑 `harness-init` 只会全 CONFLICT（还会想写 `Makefile.harness`）。实际做法：临时目录渲染新版 → 逐文件 diff → 只回写 kit 管理的 `tools/`、`harness/config.json`（kitVersion/配置）、Makefile 的 kit 目标段与 CI/hook；项目自有文档（AGENTS/CONTRIBUTING/README/docs/references）不回写 kit。
 - 升级后必须重跑 `make verify-static`，并用 kit 侧 `python3 /tmp/harness-kit/scripts/harness-selftest --target .` 做负向注入复核；`harness/config.json` 是路径/命令/预算/claims 的唯一配置源。
 - 宿主差异只剩配置与 Makefile 宿主目标（`check-quality`/`test`/`evidence-test`）；`tools/` 下 9 个脚本与 kit v0.2.3 逐字节一致（`check_plan` 无扩展名根文件声明、`check_hygiene`/`check_layers` 通用传感器均随上游）。
