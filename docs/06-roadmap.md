@@ -14,8 +14,9 @@
 | P3 清洁批次（已完成 2026-11-10） | D-6 分项已修：符号链接 → 固定 tag、debug 入口 → `src/debug`、死代码删除、`.gitignore` 补全、`gradlew.local.sh` → `scripts/gradlew-local.sh` | 跟踪文件 0 本机绝对路径（`check_hygiene` PASS）；65 单测 PASS |
 | P4 传感器（已完成 2026-11-10） | `check-host`（分层/卫生）并入 `verify-static`；detekt + ktlint + Android Lint 接入 `check-quality`（baseline 起步）；JUnit XML → `verify-claim` 证据链 | `make check-host` 0；`make check-quality` 0；`tests-pass` 证据 PASS |
 | P5 验收（已完成 2026-11-10） | 12 项负向注入（全部命中门禁）+ 冷启动首访 5/5 + 计划 done/归档 | 注入必红/恢复必绿；首访 5/5；归档后门禁 PASS |
+| P6 kit 升级（已完成 2026-11-10） | v0.2.2 → v0.2.3：宿主传感器（`check_hygiene`/`check_layers`）上游化、`check_plan` 根文件声明修复、kit `harness-selftest` 接入、`static-gates` 证据 claim | `make verify-static` PASS；selftest 8/8；`static-gates` 证据 PASS |
 
-**已完成（2026-11-10）**：P1 接入 harness-kit standard profile；P2 文档蒸馏（当前/历史两层、`_archive/`、决策表 D1–D15）；P3 清洁批次；P4 传感器与证据链（`check-host`/`check-quality`/`tests-pass` 证据 `20261109T163805Z-tests-pass`）；P5 负向注入 12/12、冷启动 5/5、计划归档。
+**已完成（2026-11-10）**：P1 接入 harness-kit standard profile；P2 文档蒸馏（当前/历史两层、`_archive/`、决策表 D1–D15）；P3 清洁批次；P4 传感器与证据链（`check-host`/`check-quality`/`tests-pass` 证据 `20261109T163805Z-tests-pass`）；P5 负向注入 12/12、冷启动 5/5、计划归档；P6 kit v0.2.3 升级（宿主传感器上游化 + 门禁自测 + `static-gates` 证据）。
 
 ## Next（下一步，按优先级）
 
@@ -50,6 +51,7 @@
 
 - **2026-09**：M1–M5 代码路径落地（引导、面对面、任务与 Room、同传读出、会议、导出）；总结为桩；延迟专项代码已写但未真机验证。
 - **2026-11-10**：P1 接入 harness-kit standard profile（`make check` / `make verify-static` PASS，65 JVM 单测基线）；历史文档迁入 `_archive/`。
+- **2026-11-10**：升级 harness-kit v0.2.3：`tools/` 与上游逐字节一致、`layers`/`hygiene` 配置迁移到通用 schema、`static-gates` 证据与 `harness-selftest` 8/8 落地。
 
 ## 进度与证据约定
 

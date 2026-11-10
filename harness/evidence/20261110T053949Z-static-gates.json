@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "claim": "static-gates",
+  "command": "make verify-static",
+  "environment": {
+    "project": "对译 Duiyi Android",
+    "toolchain": "python3 / git / harness-kit v0.2.3 (standard)",
+    "os": "macOS 26.4 (arm64)"
+  },
+  "result": {
+    "status": "SUCCEEDED",
+    "failed": 0,
+    "durationSec": 0.4
+  },
+  "verdict": "PASS",
+  "notes": "kit v0.2.3 升级后 clean tree 静态门禁：check + check-evidence + check-host 全 PASS；同轮 kit harness-selftest 8/8",
+  "id": "20261110T053949Z-static-gates",
+  "createdAt": "2026-11-10T05:39:49Z",
+  "git": {
+    "commit": "48496f74d194",
+    "dirty": false
+  },
+  "verifier": "tools/evidence.py@0.2.3"
+}

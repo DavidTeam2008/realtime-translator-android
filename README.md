@@ -18,7 +18,7 @@
 ## 当前状态
 
 - 主路径已在荣耀真机跑通；**端到端延迟约 2–2.7 s 是当前最大体验问题**，已知缺陷与实现现状见 [`docs/09-current-state.md`](docs/09-current-state.md)。
-- 2026-11-10 完成 harness-kit 0.2.2（standard）接入：文档蒸馏、清洁、宿主传感器与证据链（`tests-pass`）已落地；P5 验收中的负向注入与冷启动走查记录见完成后归档的计划。
+- 2026-11-10 完成 harness-kit 0.2.2（standard）接入，并当天升级到 **0.2.3**：宿主传感器（`check_hygiene`/`check_layers`）上游化、`check_plan` 根文件声明缺口修复、kit `harness-selftest` 负向注入可用；证据链含 `tests-pass` 与 `static-gates`。
 
 ## 技术栈与最低系统
 

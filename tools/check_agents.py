@@ -10,7 +10,7 @@
 检查项：
     a) `config.instructions.root` 存在；`nested` 列表中的文件存在且字节数 ≤ nestedMaxBytes；
     b) `config.instructions.budgets` 中文件 token 数 ≤ 预算；
-    c) 敏感串：`config.instructions.sensitivePatterns` + 内置 `/local/`、设备标识形、
+    c) 敏感串：`config.instructions.sensitivePatterns` + 内置 `/Users/`、设备标识形、
        `sk-` 密钥形，扫描根/嵌套指令文件；
     d) `§N` / `第 N 节` 引用能解析到目标文件且对应编号标题存在：
        同行最近 `.md` 路径 → 「根 AGENTS」→ 根文件自引用；无法定位 → FAIL。
@@ -42,7 +42,7 @@ SECTION_REF_RE = re.compile(
 )
 # 内置敏感串：机器绝对路径、设备标识（十六进制连字符）、疑似 API Key。
 BUILTIN_SENSITIVE: tuple[tuple[str, re.Pattern[str]], ...] = (
-    ("绝对路径 /local/", re.compile(r"/local/")),
+    ("绝对路径 /Users/", re.compile(r"/Users/")),
     (
         "设备标识（十六进制连字符）",
         re.compile(
@@ -53,7 +53,7 @@ BUILTIN_SENSITIVE: tuple[tuple[str, re.Pattern[str]], ...] = (
     ),
     ("疑似密钥 sk-", re.compile(r"(?:^|[^A-Za-z0-9_])sk-[A-Za-z0-9_\-]{8,}")),
 )
-BUILTIN_LITERALS = {"/local/", "sk-"}
+BUILTIN_LITERALS = {"/Users/", "sk-"}
 
 
 class ConfigError(Exception):

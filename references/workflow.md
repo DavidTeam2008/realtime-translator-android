@@ -32,7 +32,8 @@
 
 ## 6. kit 升级
 
-- 本仓镜像 harness-kit v0.2.2（kit 文件不手改、不分叉）。新版先 `--dry-run` 比对再合并，冲突以新版为准，本仓差异回写计划。
+- 本仓镜像 harness-kit **v0.2.3**：kit 文件不手改；差异只在 config 与 Makefile 宿主目标。
+- 升级：临时渲染新版 → 逐文件 diff → 回写 tools/config/Makefile/CI；跑 `make verify-static` + kit `harness-selftest`；卡点写计划。
 
 ## 7. 红队最小协定
 

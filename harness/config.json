@@ -1,5 +1,5 @@
 {
-  "kitVersion": "0.2.2",
+  "kitVersion": "0.2.3",
   "project": {
     "name": "对译 Duiyi Android",
     "language": "android"
@@ -30,8 +30,8 @@
       "references/workflow.md": 700
     },
     "sensitivePatterns": [
-      "/local/",
-      "/local/",
+      "/Users/",
+      "/Volumes/",
       "sk-"
     ]
   },
@@ -79,6 +79,11 @@
       "name": "docs-pass",
       "type": "static",
       "command": "python3 tools/check_docs.py"
+    },
+    {
+      "name": "static-gates",
+      "type": "static",
+      "command": "make verify-static"
     }
   ],
   "freshness": {
@@ -98,6 +103,24 @@
       "references/**",
       "AGENTS.md",
       "harness/**"
+    ],
+    "static-gates": [
+      "tools/**",
+      "harness/config.json",
+      "harness/evidence/schema.json",
+      "harness/evidence/TEMPLATE.json",
+      "Makefile",
+      "HARNESS.md",
+      "AGENTS.md",
+      "CONTRIBUTING.md",
+      "README.md",
+      "docs/**",
+      "references/**",
+      "scripts/**",
+      ".github/**",
+      ".githooks/**",
+      "config/**",
+      "app/src/**"
     ]
   },
   "adapters": {
@@ -108,43 +131,65 @@
   },
   "layers": {
     "sourceRoot": "app/src/main/java/com/duiyi/android",
-    "domainForbidden": [
-      "android.",
-      "androidx.",
-      "com.duiyi.android.app",
-      "com.duiyi.android.features",
-      "com.duiyi.android.services",
-      "com.duiyi.android.designsystem"
+    "extensions": [
+      ".kt"
     ],
-    "servicesForbidden": [
-      "com.duiyi.android.features",
-      "com.duiyi.android.designsystem"
+    "rules": [
+      {
+        "name": "domain",
+        "pathPrefix": "domain/",
+        "forbiddenImports": [
+          "android.",
+          "androidx.",
+          "com.duiyi.android.app",
+          "com.duiyi.android.features",
+          "com.duiyi.android.services",
+          "com.duiyi.android.designsystem"
+        ]
+      },
+      {
+        "name": "services",
+        "pathPrefix": "services/",
+        "forbiddenImports": [
+          "com.duiyi.android.features",
+          "com.duiyi.android.designsystem"
+        ]
+      },
+      {
+        "name": "features",
+        "pathPrefix": "features/",
+        "forbiddenImports": [
+          "com.duiyi.android.services",
+          "androidx.room",
+          "android.database"
+        ],
+        "allowedImports": [
+          "com.duiyi.android.services.ComputeGate",
+          "com.duiyi.android.services.LatencyProbe",
+          "com.duiyi.android.services.assets.DeviceAssetCatalog",
+          "com.duiyi.android.services.speech.SherpaModelStore",
+          "com.duiyi.android.services.speech.SpeechEngineException",
+          "com.duiyi.android.services.speech.SpeechIntentBridge",
+          "com.duiyi.android.services.speech.SpeechRecognizerFactory",
+          "com.duiyi.android.services.translation.TranslationPump"
+        ]
+      }
     ],
-    "featuresForbiddenImports": [
-      "com.duiyi.android.services",
-      "androidx.room",
-      "android.database"
-    ],
-    "featuresServicesAllowlist": [
-      "com.duiyi.android.services.ComputeGate",
-      "com.duiyi.android.services.LatencyProbe",
-      "com.duiyi.android.services.assets.DeviceAssetCatalog",
-      "com.duiyi.android.services.speech.SherpaModelStore",
-      "com.duiyi.android.services.speech.SpeechEngineException",
-      "com.duiyi.android.services.speech.SpeechIntentBridge",
-      "com.duiyi.android.services.speech.SpeechRecognizerFactory",
-      "com.duiyi.android.services.translation.TranslationPump"
-    ],
-    "engineClasses": [
-      "SherpaSpeech",
-      "AndroidSpeechEngine",
-      "GemmaTranslator",
-      "LlamaNative"
-    ],
-    "engineAllowedPaths": [
-      "app/src/main/java/com/duiyi/android/services/**",
-      "app/src/main/java/com/duiyi/android/app/**",
-      "app/src/main/java/com/duiyi/android/debug/**"
+    "symbolGuards": [
+      {
+        "name": "engine",
+        "classes": [
+          "SherpaSpeech",
+          "AndroidSpeechEngine",
+          "GemmaTranslator",
+          "LlamaNative"
+        ],
+        "allowedPaths": [
+          "app/src/main/java/com/duiyi/android/services/**",
+          "app/src/main/java/com/duiyi/android/app/**",
+          "app/src/main/java/com/duiyi/android/debug/**"
+        ]
+      }
     ]
   },
   "hygiene": {
@@ -178,8 +223,8 @@
       "gradlew.bat"
     ],
     "localPathPatterns": [
-      "/local/",
-      "/local/",
+      "/Users/",
+      "/Volumes/",
       "/home/"
     ],
     "skipLocalPathScan": [
