@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite name="com.duiyi.android.domain.CaptionModelsTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-11-09T16:38:04" time="0.004">
+  <properties />
+  <testcase name="settledTranslationReplacesLongerPartial" classname="com.duiyi.android.domain.CaptionModelsTest" time="0.004" />
+  <testcase name="streamingStillPrefersLongerTranslation" classname="com.duiyi.android.domain.CaptionModelsTest" time="0.0" />
+  </testsuite>

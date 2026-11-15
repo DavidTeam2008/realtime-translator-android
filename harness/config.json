@@ -1,5 +1,5 @@
 {
-  "kitVersion": "0.2.3",
+  "kitVersion": "0.5.3",
   "project": {
     "name": "对译 Duiyi Android",
     "language": "android"
@@ -23,11 +23,14 @@
       "harness/AGENTS.md"
     ],
     "nestedMaxBytes": 8192,
+    "nestedMaxTokens": 1000,
     "budgets": {
       "AGENTS.md": 1200,
       "references/contracts.md": 700,
       "references/verification.md": 900,
-      "references/workflow.md": 700
+      "references/workflow.md": 700,
+      "docs/README.md": 1000,
+      "HARNESS.md": 1500
     },
     "sensitivePatterns": [
       "/Users/",
@@ -41,6 +44,7 @@
       "AGENTS.md",
       "docs/README.md",
       "docs/AGENTS.md",
+      "docs/harness-scorecard.md",
       "docs/01-product.md",
       "docs/02-architecture.md",
       "docs/03-decisions.md",
@@ -72,7 +76,7 @@
       "baseline": "harness/test-baseline.json",
       "floor": "unit.floor",
       "expectedSkipped": "unit.expectedSkipped",
-      "requireArtifact": false,
+      "requireArtifact": true,
       "command": "./scripts/verify-unit.sh"
     },
     {
@@ -122,6 +126,10 @@
       "config/**",
       "app/src/**"
     ]
+  },
+  "scorecard": {
+    "maxAgeDays": 30,
+    "maxCommits": 50
   },
   "adapters": {
     "claudeCode": {
@@ -220,7 +228,8 @@
       "settings.gradle.kts",
       "gradle.properties",
       "gradlew",
-      "gradlew.bat"
+      "gradlew.bat",
+      ".harness-manifest.json"
     ],
     "localPathPatterns": [
       "/Users/",

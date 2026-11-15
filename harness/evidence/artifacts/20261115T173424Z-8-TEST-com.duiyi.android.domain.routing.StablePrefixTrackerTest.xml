@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite name="com.duiyi.android.domain.routing.StablePrefixTrackerTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2026-11-09T16:38:04" time="0.002">
+  <properties />
+  <testcase name="utterancesAreTrackedSeparately" classname="com.duiyi.android.domain.routing.StablePrefixTrackerTest" time="0.001" />
+  <testcase name="withoutPunctuationNothingIsCommitted" classname="com.duiyi.android.domain.routing.StablePrefixTrackerTest" time="0.0" />
+  <testcase name="finalCommitsEverythingRemaining" classname="com.duiyi.android.domain.routing.StablePrefixTrackerTest" time="0.0" />
+  <testcase name="doesNotCommitTwice" classname="com.duiyi.android.domain.routing.StablePrefixTrackerTest" time="0.0" />
+  <testcase name="commitsUpToBoundaryOnceTwoHypothesesAgree" classname="com.duiyi.android.domain.routing.StablePrefixTrackerTest" time="0.001" />
+  <testcase name="firstHypothesisCommitsNothing" classname="com.duiyi.android.domain.routing.StablePrefixTrackerTest" time="0.0" />
+  <testcase name="revisedHypothesisShrinksTheAgreedRegion" classname="com.duiyi.android.domain.routing.StablePrefixTrackerTest" time="0.0" />
+  <testcase name="aLonePunctuationChunkIsHeldBack" classname="com.duiyi.android.domain.routing.StablePrefixTrackerTest" time="0.0" />
+  <testcase name="aCharacterPlusPunctuationClearsTheThreshold" classname="com.duiyi.android.domain.routing.StablePrefixTrackerTest" time="0.0" />
+  <testcase name="finalOnFirstHypothesisCommitsItAll" classname="com.duiyi.android.domain.routing.StablePrefixTrackerTest" time="0.0" />
+  <testcase name="forgetDropsCommittedState" classname="com.duiyi.android.domain.routing.StablePrefixTrackerTest" time="0.0" />
+  </testsuite>

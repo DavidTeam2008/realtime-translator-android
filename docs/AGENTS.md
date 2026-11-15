@@ -1,11 +1,11 @@
 # docs/AGENTS.md · 文档目录规则
 
-> 状态：当前（2026-11-10）｜真源：本页是 `docs/` 的增量规则；索引见 [`README.md`](README.md)，项目规则见 [`../AGENTS.md`](../AGENTS.md)。
+> 状态：当前（2026-11-16）｜`docs/` 增量规则；索引见 [`README.md`](README.md)，项目规则见 [`../AGENTS.md`](../AGENTS.md)。
 > 触发：新增、重写、移动或归档 `docs/*.md` 前读本页。
 
 ## 1. 状态头（每篇必须有）
 
-- **当前文档**：文件开头写一行
+- **当前文档**：开头写一行
   `> 状态：当前（YYYY-MM-DD）｜真源：<代码路径 / 计划 / 证据>`
 - **历史文档**：只放在 `_archive/`，开头写
   `> 状态：历史（YYYY-MM-DD）｜快照，不作为现状引用`
@@ -21,7 +21,7 @@
 | 架构、分层与依赖 | [`02-architecture.md`](02-architecture.md) |
 | 决策与理由（D 编号） | [`03-decisions.md`](03-decisions.md)；其他文档只引用 D 编号 |
 | 运行时流水线与参数 | [`04-runtime.md`](04-runtime.md) |
-| 已知问题 / 桩 / 未验证项 | [`05-known-issues.md`](05-known-issues.md)；09 只做速览，不重复细节 |
+| 已知问题 / 桩 / 未验证项 | [`05-known-issues.md`](05-known-issues.md)；09 速览 |
 | 方向（Now/Next/Later） | [`06-roadmap.md`](06-roadmap.md)；进度以 active 计划 + 证据为准 |
 | 端侧 LLM 原理与数字 | [`07-on-device-llm.md`](07-on-device-llm.md) |
 | 延迟归因与方案 | [`08-latency.md`](08-latency.md) |
@@ -33,7 +33,7 @@
 
 ## 3. 新增、归档与索引
 
-- 新增 `docs/*.md`：必须登记到 [`README.md`](README.md) 的「当前文档」表，并同步 `harness/config.json` 的公开文档白名单（如启用）。否则 `make check` 失败。
+- 新增 `docs/*.md`：登记到 [`README.md`](README.md) 并同步 `harness/config.json` 白名单，否则 `make check` 失败。
 - 命名：小写短横线、一个主题一篇；当前规范用 `NN-topic.md`，专题（决策/现状速览）可用语义名。
 - 归档：用 `git mv` 移到 `docs/_archive/<批次>/`，更新 [`_archive/README.md`](_archive/README.md) 的「归档 → 当前对应」关系，并把所有引用改到当前文档。
 - `_archive/` 只读、不参与 `check_docs` 扫描，也不作为现状引用。
