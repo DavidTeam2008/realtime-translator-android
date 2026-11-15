@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite name="com.duiyi.android.services.persistence.InMemoryTaskStoreTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-11-09T16:38:04" time="0.045">
+  <properties />
+  <testcase name="emptyTaskDoesNotEnterHistory" classname="com.duiyi.android.services.persistence.InMemoryTaskStoreTest" time="0.044" />
+  <testcase name="deletingOneTaskLeavesTheOther" classname="com.duiyi.android.services.persistence.InMemoryTaskStoreTest" time="0.001" />
+  </testsuite>

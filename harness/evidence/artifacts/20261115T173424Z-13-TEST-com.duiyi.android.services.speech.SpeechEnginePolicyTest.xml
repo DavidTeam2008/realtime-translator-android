@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite name="com.duiyi.android.services.speech.SpeechEnginePolicyTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-11-09T16:38:04" time="0.002">
+  <properties />
+  <testcase name="honorNeverWaitsOnMissingOfflinePacks" classname="com.duiyi.android.services.speech.SpeechEnginePolicyTest" time="0.0" />
+  <testcase name="honorFamilyIncludesMagicOsBrands" classname="com.duiyi.android.services.speech.SpeechEnginePolicyTest" time="0.0" />
+  <testcase name="honorRanksGoogleAheadAndDropsVendorEngines" classname="com.duiyi.android.services.speech.SpeechEnginePolicyTest" time="0.001" />
+  <testcase name="honorDoesNotUseOnDeviceStub" classname="com.duiyi.android.services.speech.SpeechEnginePolicyTest" time="0.0" />
+  <testcase name="magicVoiceCountsAsVendorMute" classname="com.duiyi.android.services.speech.SpeechEnginePolicyTest" time="0.0" />
+  <testcase name="pixelUsesOnDeviceWhenPacksExist" classname="com.duiyi.android.services.speech.SpeechEnginePolicyTest" time="0.0" />
+  <testcase name="honorDoesNotUseSilenceWindowExtras" classname="com.duiyi.android.services.speech.SpeechEnginePolicyTest" time="0.0" />
+  <testcase name="honorUsesSherpaNotGoogleSpeechIntent" classname="com.duiyi.android.services.speech.SpeechEnginePolicyTest" time="0.0" />
+  <testcase name="languageSwitchStaysOffOnHonor" classname="com.duiyi.android.services.speech.SpeechEnginePolicyTest" time="0.0" />
+  <testcase name="pixelKeepsVendorAsLastResort" classname="com.duiyi.android.services.speech.SpeechEnginePolicyTest" time="0.001" />
+  </testsuite>

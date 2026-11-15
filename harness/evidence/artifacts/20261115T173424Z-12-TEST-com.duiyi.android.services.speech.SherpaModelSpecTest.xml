@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite name="com.duiyi.android.services.speech.SherpaModelSpecTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-11-09T16:38:04" time="0.0">
+  <properties />
+  <testcase name="senseVoicePackHasModelTokensAndVad" classname="com.duiyi.android.services.speech.SherpaModelSpecTest" time="0.0" />
+  <testcase name="expectedSizesCoverSenseVoiceAndVad" classname="com.duiyi.android.services.speech.SherpaModelSpecTest" time="0.0" />
+  <testcase name="incompleteDownloadsAreRejected" classname="com.duiyi.android.services.speech.SherpaModelSpecTest" time="0.0" />
+  <testcase name="mirrorsPreferChinaThenUpstream" classname="com.duiyi.android.services.speech.SherpaModelSpecTest" time="0.0" />
+  </testsuite>

@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite name="com.duiyi.android.services.translation.TranslateGemmaPromptTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-11-09T16:38:04" time="0.002">
+  <properties />
+  <testcase name="blankPreviousOmitsContextBlock" classname="com.duiyi.android.services.translation.TranslateGemmaPromptTest" time="0.001" />
+  <testcase name="sanitizeDropsNotesAndQuotes" classname="com.duiyi.android.services.translation.TranslateGemmaPromptTest" time="0.0" />
+  <testcase name="promptMatchesOfficialTranslatorTemplate" classname="com.duiyi.android.services.translation.TranslateGemmaPromptTest" time="0.001" />
+  <testcase name="maxOutputTokensScalesWithSourceLength" classname="com.duiyi.android.services.translation.TranslateGemmaPromptTest" time="0.0" />
+  </testsuite>

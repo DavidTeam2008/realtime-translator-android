@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite name="com.duiyi.android.domain.routing.UtteranceAssemblerTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-09T16:38:04" time="0.0">
+  <properties />
+  <testcase name="chineseUtteranceLocksWinner" classname="com.duiyi.android.domain.routing.UtteranceAssemblerTest" time="0.0" />
+  <testcase name="englishRejectedWhenClaimedChineseAndMostlyLatin" classname="com.duiyi.android.domain.routing.UtteranceAssemblerTest" time="0.0" />
+  <testcase name="finalAllowsOppositeLanguageNext" classname="com.duiyi.android.domain.routing.UtteranceAssemblerTest" time="0.0" />
+  </testsuite>

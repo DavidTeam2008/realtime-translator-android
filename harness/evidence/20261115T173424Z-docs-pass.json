@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "claim": "docs-pass",
+  "command": "python3 tools/check_docs.py",
+  "environment": {
+    "id": "local",
+    "os": "darwin",
+    "python": "3.14"
+  },
+  "result": {
+    "status": "SUCCEEDED",
+    "exitCode": 0
+  },
+  "verdict": "PASS",
+  "verifier": "tools/evidence.py@0.5.3",
+  "id": "20261115T173424Z-docs-pass",
+  "createdAt": "2026-11-15T17:34:24Z",
+  "git": {
+    "commit": "2d6da0bbd19b",
+    "dirty": false
+  }
+}

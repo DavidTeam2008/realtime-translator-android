@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite name="com.duiyi.android.domain.routing.SpokenSegmentJoinerTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-11-09T16:38:04" time="0.006">
+  <properties />
+  <testcase name="timeoutFlushReportsHowLongTheFragmentWasHeld" classname="com.duiyi.android.domain.routing.SpokenSegmentJoinerTest" time="0.001" />
+  <testcase name="holdingLongerIsReportedAccurately" classname="com.duiyi.android.domain.routing.SpokenSegmentJoinerTest" time="0.0" />
+  <testcase name="chineseShortsJoinWithoutSpace" classname="com.duiyi.android.domain.routing.SpokenSegmentJoinerTest" time="0.004" />
+  <testcase name="forceFlushReportsNoHoldDuration" classname="com.duiyi.android.domain.routing.SpokenSegmentJoinerTest" time="0.0" />
+  <testcase name="shortEnglishFinalsStayOpenThenJoin" classname="com.duiyi.android.domain.routing.SpokenSegmentJoinerTest" time="0.0" />
+  <testcase name="longSentenceFlushesImmediately" classname="com.duiyi.android.domain.routing.SpokenSegmentJoinerTest" time="0.001" />
+  <testcase name="newSentenceDoesNotSwallowHeldFragment" classname="com.duiyi.android.domain.routing.SpokenSegmentJoinerTest" time="0.0" />
+  <testcase name="ingestWithoutATimestampReportsNoHoldDuration" classname="com.duiyi.android.domain.routing.SpokenSegmentJoinerTest" time="0.0" />
+  <testcase name="timeoutFlushesHeldShort" classname="com.duiyi.android.domain.routing.SpokenSegmentJoinerTest" time="0.0" />
+  </testsuite>
