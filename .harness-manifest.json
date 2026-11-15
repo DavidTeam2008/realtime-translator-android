@@ -1,0 +1,261 @@
+{
+  "schemaVersion": 1,
+  "kitVersion": "0.5.3",
+  "profile": "standard",
+  "generatedAt": "2026-11-15T17:34:01Z",
+  "options": {
+    "name": "对译 Duiyi Android",
+    "language": "android",
+    "testCommand": "./scripts/verify-unit.sh",
+    "adapters": [
+      "githooks",
+      "ci"
+    ],
+    "branch": "main",
+    "branchSource": "origin/HEAD",
+    "agentsMode": "replace",
+    "hooksPath": ".githooks"
+  },
+  "files": [
+    {
+      "path": ".githooks/pre-push",
+      "sha256": "a6a4444b2a3e9336b39c74177741875bf22048e866a6f8f9862b5825ea5bf04c",
+      "src": "adapters/githooks/pre-push",
+      "render": false,
+      "executable": true
+    },
+    {
+      "path": ".github/workflows/verify.yml",
+      "sha256": "b8f15239675dd8727d3b91226a215a10cb2031208e1cb0deaf044a51402dabda",
+      "src": "adapters/ci/verify.yml.template",
+      "render": true,
+      "executable": false
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "b924ebb12f51221b504d585c0969f9fdc135e70451bd1e8f58c0e7bdf3c3ff05",
+      "src": "core/templates/AGENTS.md.template",
+      "render": true,
+      "executable": false
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "sha256": "3f52fa4359efc73a1deb6da97e42b24f0e13842100cc6f5a33565f3cdb40f109",
+      "src": "core/templates/CONTRIBUTING.md.template",
+      "render": true,
+      "executable": false
+    },
+    {
+      "path": "HARNESS.md",
+      "sha256": "1fe3dfd457e9f685edfa725de46e2135274c406cde2c92c51e908fa04b1c0da1",
+      "src": "core/templates/HARNESS.md.template",
+      "render": true,
+      "executable": false
+    },
+    {
+      "path": "Makefile",
+      "sha256": "af3ca0401ff92088512b22a46c7e50e7bc8c4c8673b4004f2287b009a039647c",
+      "src": "core/templates/makefiles/Makefile.standard.template",
+      "render": true,
+      "executable": false
+    },
+    {
+      "path": "docs/AGENTS.md",
+      "sha256": "8eba9c8fc594d9286c285de078a128ad075c9b93bd86cb74a9cb69caf17b2069",
+      "src": "core/templates/docs/AGENTS.md.template",
+      "render": true,
+      "executable": false
+    },
+    {
+      "path": "docs/README.md",
+      "sha256": "4695836de656f60bdee1efd377b95912fafb3e9252ad8946229b287e4603bb37",
+      "src": "core/templates/docs/README.standard.md.template",
+      "render": true,
+      "executable": false
+    },
+    {
+      "path": "docs/harness-scorecard.md",
+      "sha256": "c80229d257f6cddfd73dc39951feb8a9064f69079ddeaf65a99cdbc86a28589c",
+      "src": "core/templates/docs/harness-scorecard.md.template",
+      "render": true,
+      "executable": false
+    },
+    {
+      "path": "harness/AGENTS.md",
+      "sha256": "384d6606e6885d2d8cd266bcd5068de427b46799f4132c37a9c3035f5bf2b8c5",
+      "src": "core/templates/harness/AGENTS.md.template",
+      "render": true,
+      "executable": false
+    },
+    {
+      "path": "harness/README.md",
+      "sha256": "93409c083c299eb54f6bd1f54e452acc702f2f4f822d9d76c9fbc416eee610ef",
+      "src": "core/templates/harness/README.md.template",
+      "render": true,
+      "executable": false
+    },
+    {
+      "path": "harness/config.json",
+      "sha256": "035a3b6d7bdd114d16a4029feed9790fc512e350766ca53c415efba67752d2d5",
+      "src": "core/templates/harness/config.json.template",
+      "render": true,
+      "executable": false
+    },
+    {
+      "path": "harness/evidence/README.md",
+      "sha256": "64d7f7ae1a1e788264cdf6544597866a340767400f4b7deaf3ad11c7694f3d5f",
+      "src": "core/templates/harness/evidence/README.md.template",
+      "render": true,
+      "executable": false
+    },
+    {
+      "path": "harness/evidence/TEMPLATE.json",
+      "sha256": "ee0081efd55e8bf4f753fafef76185150bb9aca98cf2300642aa7f3289bc80af",
+      "src": "core/templates/harness/evidence/TEMPLATE.json",
+      "render": true,
+      "executable": false
+    },
+    {
+      "path": "harness/evidence/schema.json",
+      "sha256": "0a8c8f46f4c7213265e1cd30471d64944f6eeb456fc147e5117e0404f6771ec4",
+      "src": "core/templates/harness/evidence/schema.json",
+      "render": false,
+      "executable": false
+    },
+    {
+      "path": "harness/plans/_template.md",
+      "sha256": "7065d53a3905b9d8a44073ef7cf5c967ca1d97f6f40dbc84b5eeb35d0a24290f",
+      "src": "core/templates/harness/plans/_template.md",
+      "render": true,
+      "executable": false
+    },
+    {
+      "path": "harness/requirements/_template.md",
+      "sha256": "1e51e424560bf901f665967f09f03ec5021ead86773c16e30331912750cd02a6",
+      "src": "core/templates/harness/requirements/_template.md",
+      "render": false,
+      "executable": false
+    },
+    {
+      "path": "harness/test-baseline.json",
+      "sha256": "158cc4298fcef11901a9862e8b17a7bf27d41425ab0f3ffe9ddcb1cffb8bfb8b",
+      "src": "core/templates/harness/test-baseline.json.template",
+      "render": true,
+      "executable": false
+    },
+    {
+      "path": "references/contracts.md",
+      "sha256": "17216b61529c3c718332d068fde9a583d620f8a8b3e7bf5dc475e98da8edf435",
+      "src": "core/templates/references/contracts.md.template",
+      "render": true,
+      "executable": false
+    },
+    {
+      "path": "references/verification.md",
+      "sha256": "a7b3f70ca3ec3d4d822d77ca5dbfbaeee9f53ff77d998a872f7b2cbbcc8d6a90",
+      "src": "core/templates/references/verification.md.template",
+      "render": true,
+      "executable": false
+    },
+    {
+      "path": "references/workflow.md",
+      "sha256": "302cbe6025624d743a9256009480ff1dc7bf2b145a48074de4795e28b5f1b165",
+      "src": "core/templates/references/workflow.md.template",
+      "render": true,
+      "executable": false
+    },
+    {
+      "path": "tools/check_agents.py",
+      "sha256": "a4b1ac8f350f81201ff3f6d9219e501968a18542ab219a4462e80cad18c8e14c",
+      "src": "core/tools/check_agents.py",
+      "render": false,
+      "executable": false
+    },
+    {
+      "path": "tools/check_docs.py",
+      "sha256": "f564037d58baa901fd6510e90cfca8321835ecabc30adf0be8dfb89b9ace723b",
+      "src": "core/tools/check_docs.py",
+      "render": false,
+      "executable": false
+    },
+    {
+      "path": "tools/check_hygiene.py",
+      "sha256": "9c9c5565618475b5586a19c02095c84fc6119039196ea1e3e8c0e4ec09fe958b",
+      "src": "core/tools/check_hygiene.py",
+      "render": false,
+      "executable": false
+    },
+    {
+      "path": "tools/check_layers.py",
+      "sha256": "4c890a017555ec4c13a4b0b0d48e0203e856ee7eaf4a50070a05b6a0b3ebc6c3",
+      "src": "core/tools/check_layers.py",
+      "render": false,
+      "executable": false
+    },
+    {
+      "path": "tools/check_plan.py",
+      "sha256": "71df7c70181ad686b7d48f5bee3aa3fa79cd479a62572393d220d684285ff72f",
+      "src": "core/tools/check_plan.py",
+      "render": false,
+      "executable": false
+    },
+    {
+      "path": "tools/evidence.py",
+      "sha256": "b1c835e03cbba12e0258b5242c242d09ea13f7dcf35208ef143a8aef160d78d1",
+      "src": "core/tools/evidence.py",
+      "render": false,
+      "executable": false
+    },
+    {
+      "path": "tools/evidence_from_junit.py",
+      "sha256": "4428c59efd8764619beaaf041c1a4cbaeffdb3e5b24ccd16aae5e4b97c00cfa0",
+      "src": "core/tools/evidence_from_junit.py",
+      "render": false,
+      "executable": false
+    },
+    {
+      "path": "tools/harness.py",
+      "sha256": "e7e84640fdcad5898337d5f6c5fa6d8e531331905f3af91a39a1b591cf9402c9",
+      "src": "core/tools/harness.py",
+      "render": false,
+      "executable": false
+    },
+    {
+      "path": "tools/harness_selftest",
+      "sha256": "c1e253311809d3d4f2c0358d7f7160e88f47809f2dfe129222602268e6f82581",
+      "src": "scripts/harness-selftest",
+      "render": false,
+      "executable": true
+    },
+    {
+      "path": "tools/scorecard.py",
+      "sha256": "9a565c223d47b9a27ed5690485f69e2c85d62050536cbcabd14110b0e31bef30",
+      "src": "core/tools/scorecard.py",
+      "render": false,
+      "executable": false
+    },
+    {
+      "path": "tools/token_estimate.py",
+      "sha256": "d115f76f7c750c9a66118e1be3e6a7571741b29b98cce0797ab5473ca70a33d1",
+      "src": "core/tools/token_estimate.py",
+      "render": false,
+      "executable": false
+    },
+    {
+      "path": "tools/verify_claim.py",
+      "sha256": "8d1f41f05a7ecd2964cd0ed0add4e943038f27b06ab21e54e8c91689a139692d",
+      "src": "core/tools/verify_claim.py",
+      "render": false,
+      "executable": false
+    }
+  ],
+  "appends": [
+    {
+      "path": ".gitignore",
+      "marker": "# harness-kit",
+      "sha256": "ea32308bbdd7bdbae6d5982b4a013ba7809156fa63592c2a451834e477f5836d",
+      "templateSha256": "ea32308bbdd7bdbae6d5982b4a013ba7809156fa63592c2a451834e477f5836d"
+    }
+  ],
+  "skipped": []
+}

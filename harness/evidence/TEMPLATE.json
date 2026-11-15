@@ -9,16 +9,21 @@
   },
   "command": "./scripts/verify-unit.sh",
   "environment": {
+    "id": "local",
     "project": "对译 Duiyi Android",
     "toolchain": "android",
-    "os": "example"
+    "os": "example",
+    "python": "3.x",
+    "requires": []
   },
   "result": {
     "status": "UNKNOWN",
     "passed": 0,
     "failed": 0,
     "skipped": 0,
-    "durationSec": 0
+    "durationSec": 0,
+    "artifacts": [],
+    "artifactMode": "sanitized-copy"
   },
   "verdict": "UNVERIFIED",
   "verifier": "example"
