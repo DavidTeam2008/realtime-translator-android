@@ -228,7 +228,8 @@
       "settings.gradle.kts",
       "gradle.properties",
       "gradlew",
-      "gradlew.bat"
+      "gradlew.bat",
+      ".harness-manifest.json"
     ],
     "localPathPatterns": [
       "/Users/",
